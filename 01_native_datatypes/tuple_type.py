@@ -32,6 +32,7 @@ def create():
     # To create a tuple of one item, you need a comma after the value
     one_tuple = ('item',)
     print("('item',) =", one_tuple)
+    # often use by reference, while list by value
 
 
 def search():
@@ -62,7 +63,6 @@ def operations():
     # tuple of iterable
     (q, w, e) = range(3)
     print("(q, w, e) = range(3):", q, w, e)
-
 
 
 if __name__ == '__main__':

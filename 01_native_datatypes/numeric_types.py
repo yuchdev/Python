@@ -14,6 +14,7 @@ def boolean():
     print("size > 0 is", size > 0)
     print("size == 0 is", size == 0)
     print('Boolean implicitly converted to int, 42 + True =', 42 + True)
+    # Falsy args: None, 0, [], (), {}, set()
 
 
 def numbers():
@@ -40,6 +41,16 @@ def numbers():
     # The value sys.maxsize reports the platform pointer size
     # Any integer too big to fit in 64 bits is handled in software
     print("sys.maxsize=", sys.maxsize)
+
+    # infinity
+    print('float("inf") = {}'.format(float("inf")))
+
+    # combined compare
+    x = math.pi
+    if 0 < x < 10:
+        print("x between 0 and 10")
+
+    # TODO: complex
 
 
 def conversions():
