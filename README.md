@@ -4,6 +4,7 @@
 
 ### Module usage
 * import path
+* default attributes of empty module (__name__, __module__ etc)
 
 ### Numeric
 * boolean, integer, float, and complex
