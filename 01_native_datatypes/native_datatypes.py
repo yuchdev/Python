@@ -8,8 +8,10 @@ def show_import_path():
     Show path where from import perform lookup
     """
     print('####################################')
-    print('Import lookup path')
-    print(sys.path)
+    print('Import lookup path:', sys.path)
+    # __name__ is a special built-in variable which evaluates to the module name
+    # If a module is being run from command line__name__ is set to the string '__main__'
+    print('Attribute __name__:', __name__)
 
 
 def show_boolean():
@@ -20,8 +22,9 @@ def show_boolean():
     print('Evaluate boolean')
     size = 0
     # The result of the expression size < 0 is always a boolean
-    print(size > 0)
-    print(size == 0)
+    print("size > 0 is", size > 0)
+    print("size == 0 is", size == 0)
+    print('Boolean implicitly converted to int, 42 + True =', 42 + True)
 
 
 def show_numbers():
@@ -293,7 +296,6 @@ def show_sets():
     a_set2.update({2, 3, 4})
     print(a_set2)
 
-
     print('####################################')
     print('Sets removal')
     # There are three ways to remove individual values from a set
@@ -358,19 +360,14 @@ def show_dict():
     print(a_dict)
 
 
-if __name__ == '__main__':
-    # simple data types
-    show_boolean()
-    show_numbers()
-    show_conversions()
-    show_operations()
-    show_fractions()
-    show_trigonometry()
+def show_string():
+    """
+    String representations
+    https://rushter.com/blog/python-strings-and-memory/
+    """
+    pass
 
-    # simple collections
-    show_lists()
-    show_tuples()
-    show_sets()
-    show_dict()
-    # string repr
-    # https://rushter.com/blog/python-strings-and-memory/
+
+if __name__ == '__main__':
+    show_boolean()
+
