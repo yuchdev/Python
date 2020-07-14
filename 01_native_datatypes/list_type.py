@@ -6,11 +6,17 @@ def create():
     Lists operations
     List internal representation:
     https://www.laurentluce.com/posts/python-list-implementation/
+
+    List is a sequential type
+    All sequences are ordered, indexed by integers, and have a length
+    Sequences can be replicated (*), concatenated (+), sliced,
+    sorted, searched by max/min
     """
     print('Lists creation')
 
     # A list is an ordered set of items
     # Python keeps track of the list datatype internally
+    # Use a list when the order of the data matters
     a_list = ['a', 'b', 'atatat', 'z', 'example', 'Python']
     print("a_list=", a_list)
     print("a_list[0]=", a_list[0])
@@ -144,6 +150,12 @@ def operations():
     # Reverse the elements of the list in place
     a_list.reverse()
     print("a_list.reverse() =", a_list)
+
+    # The enumerate function adds an extra counter value to iteration
+    # A good example of using enumerate()
+    # is tracking line numbers while reading a file
+    for index, val in enumerate(a_list):
+        print("%d=%s" % (index, val))
 
 
 if __name__ == '__main__':

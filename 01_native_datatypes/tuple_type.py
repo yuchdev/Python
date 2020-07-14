@@ -4,6 +4,9 @@ import sys
 def create():
     """
     Tuples operations
+    Tuple is a sequential type
+    All sequences are ordered, indexed by integers, and have a length
+    Sequences can be replicated (*), concatenated (+), sliced (new tuple), searched by max/min
     """
     print('Tuples creation')
     # A tuple is an immutable list. A tuple can not be changed in any way once it is created
@@ -42,6 +45,9 @@ def search():
     # It makes your code safer
     # Some tuples can be used as dictionary keys
 
+
+def operations():
+    a_tuple = ("a", "b", "Python", "z", "example")
     # Tuples can be converted into lists, and vice-versa
     print("list(a_tuple) =", list(a_tuple))
 
@@ -56,6 +62,7 @@ def search():
     # tuple of iterable
     (q, w, e) = range(3)
     print("(q, w, e) = range(3):", q, w, e)
+
 
 
 if __name__ == '__main__':
