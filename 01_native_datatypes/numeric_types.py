@@ -1,6 +1,7 @@
 import fractions
 import math
 import sys
+import cmath
 
 
 def boolean():
@@ -69,7 +70,26 @@ def numbers():
     if 0 < x < 10:
         print("x between 0 and 10")
 
-    # TODO: complex
+    # Python is dynamically typed. Using types is just a hint
+    # Hints are not:
+    # Not static typing. The language is not enforcing anything
+    # Not Performance boosting
+
+
+def complex_num():
+    c1 = 2 + 7j
+    c2 = complex(3, 6)
+    print("2 + 7j = {}; type = {}".format(c1, type(c1)))
+    print("complex(3, 6) = {}; type = {}".format(c2, type(c2)))
+
+    print("Addition of two complex number =", c1 + c2)
+    print("Subtraction of two complex number =", c1 - c2)
+
+    # complex numbers don’t support comparison operators like <, >, <=, =>
+    # and it will through TypeError message
+
+    # Phase is angle between the real axis and the vector representing the imaginary part
+    print('Phase = {} radians'.format(cmath.phase(c1)))
 
 
 def conversions():
@@ -151,4 +171,5 @@ if __name__ == '__main__':
     try:
         locals()[function]()
     except KeyError as _:
-        print("Choose one of functions to call: boolean, number, conversions, operations, fraction, constant")
+        choices = "boolean, number, complex_num, conversions, operations, fraction, constant"
+        print("Choose one of functions to call: %s" % choices)
