@@ -17,6 +17,25 @@ def boolean():
     # Falsy args: None, 0, [], (), {}, set()
 
 
+def walrus():
+    """
+    The purpose of the walrus operator is to consolidate an assignment statement
+    and a boolean expression, assigning value to variable within the expression
+    Operator has analog in C
+    if (int i = length())
+    Parenthesis are critical for to evaluate properly!
+    """
+    # before
+    my_list = [1, 2, 3, 4, 5]
+    if len(my_list) > 3:
+        n = len(my_list)
+        print(f"The list is too long with {n} elements")
+
+    # after
+    if (n := len(my_list)) > 3:
+        print(f"The list is too long with {n} elements")
+
+
 def numbers():
     """
     Evaluate numbers

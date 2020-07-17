@@ -1,6 +1,8 @@
 import os
 import sys
 import glob
+import random
+import timeit
 
 
 def create():
@@ -58,6 +60,40 @@ def queries():
     print("sum([s['shares'] * s['price'] for s in stocks])={}".format(cost))
 
 
+def walrus():
+    # walrus operator allows you to run an expression
+    # while simultaneously assigning the output value to a variable
+    temperature = random.randrange(0, 30)
+    hot_temps = [temp for _ in temperature if (temp := get_weather_data()) >= 25]
+    print("[temp for _ in range(20) if (temp := get_weather_data()) >= 25]={}".format(hot_temps))
+
+
+def matrix():
+    matrix1 = [[i for i in range(5)] for _ in range(5)]
+    print("[[i for i in range(5)] for _ in range(5)]")
+    print(matrix1)
+
+
+def performance():
+    """
+    A list comprehension in Python works by loading the entire output list into memory
+    it’s often helpful to use a generator instead of a list comprehension in Python
+    A generator doesn't create a single, large data structure in memory, but instead returns an iterable
+    """
+    # You can tell this is a generator because the expression isn’t surrounded
+    # by brackets or curly braces. Optionally, generators can be surrounded by parentheses
+    ret = sum(i * i for i in range(1000000000))
+    print("sum(i * i for i in range(1000000000))={}".format(ret))
+
+
+def measure():
+    """
+    Compare to comprehension:
+    timeit is a useful library for timing how long it takes chunks of code to run
+    """
+    timeit.timeit(performance, number=100)
+
+
 if __name__ == '__main__':
     """
     Choose one of examples
@@ -66,4 +102,4 @@ if __name__ == '__main__':
     try:
         locals()[function]()
     except KeyError as _:
-        print("Choose one of functions to call: create, files, queries")
+        print("Choose one of functions to call: create, files, queries, walrus, matrix, performance, measure")
