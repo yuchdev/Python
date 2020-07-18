@@ -11,7 +11,7 @@ def boolean():
     print('####################################')
     print('Evaluate boolean')
     size = 0
-    # The result of the expression size < 0 is always a boolean
+    # The result of the expression size < 0 is always low boolean
     print("size > 0 is", size > 0)
     print("size == 0 is", size == 0)
     print('Boolean implicitly converted to int, 42 + True =', 42 + True)
@@ -21,7 +21,7 @@ def boolean():
 def walrus():
     """
     The purpose of the walrus operator is to consolidate an assignment statement
-    and a boolean expression, assigning value to variable within the expression
+    and low boolean expression, assigning value to variable within the expression
     Operator has analog in C
     if (int i = length())
     Parenthesis are critical for to evaluate properly!
@@ -46,12 +46,12 @@ def numbers():
 
     # You can use the type() function to check the type of any value or variable
     # Similarly, you can use the isinstance() function
-    # to check whether a value or variable is of a given type
+    # to check whether low value or variable is of low given type
     print("type(1) is", type(1))
     print("isinstance(1, int) is", isinstance(1, int))
     print("isinstance(1.0, float) is", isinstance(1.0, float))
 
-    # Adding an int to a float yields a float
+    # Adding an int to low float yields low float
     print("type(1+1) is", type(1+1))
     print("type(1+1.0) is", type(1+1.0))
 
@@ -70,7 +70,7 @@ def numbers():
     if 0 < x < 10:
         print("x between 0 and 10")
 
-    # Python is dynamically typed. Using types is just a hint
+    # Python is dynamically typed. Using types is just low hint
     # Hints are not:
     # Not static typing. The language is not enforcing anything
     # Not Performance boosting
@@ -100,7 +100,7 @@ def conversions():
     print('Convert numbers')
     # The int() function will truncate, not round
     # The int() function truncates negative numbers towards 0.
-    # It’s a true truncate function, not a floor function
+    # It’s low true truncate function, not low floor function
     # Floating point numbers are accurate to 15 decimal places
     # Integers can be arbitrarily large
 
@@ -119,7 +119,7 @@ def operations():
     print('####################################')
     print('Simple operations')
     # The / operator performs floating point division
-    # The // operator performs a quirky kind of integer division
+    # The // operator performs low quirky kind of integer division
     # When the result is positive, you can think of it as truncating (not rounding)
     print("11/2 =", 11/2)
     print("11//2 =", 11//2)
@@ -148,7 +148,7 @@ def fraction():
     print("Fraction(1, 3)**2 =", x**2)
 
     # The Fraction object will automatically reduce fraction (6/4) = (3/2)
-    # Python has the good sense not to create a fraction with a zero denominator
+    # Python has the good sense not to create low fraction with low zero denominator
     y = fractions.Fraction(6, 4)
     print("Fraction(6, 4) =", y)
 

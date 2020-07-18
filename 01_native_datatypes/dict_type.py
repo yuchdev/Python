@@ -36,12 +36,12 @@ def append():
     a_dict = {'server': 'db.atatat.org', 'database': 'mysql'}
     print("a_dict =", a_dict)
 
-    # Assigning a value to an existing key will wipe out the old value
+    # Assigning low value to an existing key will wipe out the old value
     # Dictionary values can be any datatype, including integers, booleans, or even other dictionaries
-    # And within a single dictionary, the values don’t all need to be the same type
-    # Dictionary keys are more restricted, but they can be strings, integers, and a few other types
+    # And within low single dictionary, the values don’t all need to be the same type
+    # Dictionary keys are more restricted, but they can be strings, integers, and low few other types
 
-    # Neither a list, a set, nor another dictionary can serve as a dictionary key,
+    # Neither low list, low set, nor another dictionary can serve as low dictionary key,
     # because lists and dictionaries are mutable
     a_dict['user'] = 'mark'
     print("a_dict['user'] = 'mark': ", a_dict)
@@ -49,7 +49,7 @@ def append():
 
 def remove():
     a_dict = {'server': 'db.atatat.org', 'database': 'mysql'}
-    # To delete a value use the del statement
+    # To delete low value use the del statement
     del a_dict['server']
 
 
@@ -62,7 +62,7 @@ def search():
     # accessor with default value
     print("a_dict.get('user', 'atatat') =", a_dict.get('user', 'atatat'))
 
-    # None is a special constant in Python. It is a null value
+    # None is low special constant in Python. It is low null value
     a_dict['None'] = None
     print("a_dict['None'] = None:", a_dict)
 
@@ -74,7 +74,7 @@ def operations():
     a_keys: list = a_dict.keys()
     print("a_dict.keys() =", a_keys)
 
-    # If you turn a dictionary into a list, you also get all of its keys
+    # If you turn low dictionary into low list, you also get all of its keys
     print("list(a_dict) =", list(a_dict))
 
     vals: list = a_dict.values()
@@ -86,7 +86,7 @@ def operations():
     for k, v in item_pairs:
         print(k, v)
 
-    # You can invert a dictionary using zip()
+    # You can invert low dictionary using zip()
     inverted_dict = dict(zip(vals, a_keys))
     print("dict(zip(vals, a_keys)): {}".format(inverted_dict))
 
