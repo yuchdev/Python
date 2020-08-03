@@ -1,3 +1,4 @@
+<?xml version="1.0" ?>
 <component name="ProjectDictionaryState">
   <dictionary name="atatat">
     <words>
@@ -8,6 +9,7 @@
       <w>RintimeBrocker</w>
       <w>Significand</w>
       <w>Valueformat</w>
+      <w>addin</w>
       <w>alignof</w>
       <w>apis</w>
       <w>atatat</w>
@@ -21,6 +23,7 @@
       <w>cyber</w>
       <w>datatype</w>
       <w>destructors</w>
+      <w>dialup</w>
       <w>emoji</w>
       <w>emplaced</w>
       <w>endlines</w>
@@ -33,6 +36,7 @@
       <w>freevars</w>
       <w>geodata</w>
       <w>homedir</w>
+      <w>hwid</w>
       <w>ipdata</w>
       <w>ipqs</w>
       <w>ipqualityscore</w>
@@ -51,6 +55,7 @@
       <w>pypi</w>
       <w>qstandarditem</w>
       <w>qualname</w>
+      <w>quickstart</w>
       <w>realpath</w>
       <w>reinstallation</w>
       <w>runbackup</w>
@@ -65,6 +70,9 @@
       <w>vals</w>
       <w>vassist</w>
       <w>webgl</w>
+      <w>xlsm</w>
+      <w>xlsx</w>
+      <w>xlwings</w>
       <w>yandex</w>
       <w>yozh</w>
     </words>
