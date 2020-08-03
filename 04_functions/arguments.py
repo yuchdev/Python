@@ -1,9 +1,9 @@
 import sys
 
 
-# Arguments as low tuple
+# Arguments as a tuple
 def foo(*args):
-    print("Arguments as low tuple: args = {}, type = {}".format(args, type(args)))
+    print("Arguments as a tuple: args = {}, type = {}".format(args, type(args)))
     print("'Pointer' to first argument: *args = {}".format(*args))
     for arg in args:
         print("arg:", arg)
@@ -52,6 +52,7 @@ def default_args_infinity(low=float("-inf"), high=float("inf")):
     print("low={}, high={}".format(low, high))
 
 
+# noinspection PyDefaultArgument
 def init_defaults(iterable, seen=set()):
     """
     This default argument 'seen' initialized only once.
@@ -111,6 +112,7 @@ def keyargs():
     required_keyargs(xs=1, depth=1)
     print("required_keyargs(1, 1)")
     try:
+        # noinspection PyArgumentList
         required_keyargs(1, 1)
     except TypeError as e:
         print("Key arguments required: {}".format(e))

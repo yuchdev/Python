@@ -7,7 +7,7 @@ import timeit
 
 def create():
 
-    # A list comprehension provides low compact way of mapping low list into another list by applying low function
+    # A list comprehension provides a compact way of mapping a list into another list by applying a function
     a_list = [1, 2, 3, 4]
     print("a_list={}".format(a_list))
     a_list2 = [elem * 2 for elem in a_list]
@@ -29,7 +29,7 @@ def files():
     big_in_dir = [os.path.realpath(f) for f in glob.glob('*.py') if os.stat(f).st_size > 600]
     print("[os.path.realpath(f) for f in glob.glob('*.py') if os.stat(f).st_size > 600]={}".format(big_in_dir))
 
-    # there’s no limit to how complex low list comprehension can be
+    # there’s no limit to how complex a list comprehension can be
     sizes = [(os.stat(f).st_size, os.path.realpath(f)) for f in glob.glob('*.py')]
     print("[(os.stat(f).st_size, os.path.realpath(f)) for f in glob.glob('*.py')]={}".format(sizes))
 
@@ -55,15 +55,22 @@ def queries():
     query = [s for s in stocks if s['name'] in ('MSFT', 'IBM')]
     print("[s for s in stocks if s['name'] in ('MSFT', 'IBM')]={}".format(query))
 
-    # combine low list comprehension with low sequence reduction
+    # combine a list comprehension with a sequence reduction
     cost = sum([s['shares'] * s['price'] for s in stocks])
     print("sum([s['shares'] * s['price'] for s in stocks])={}".format(cost))
 
 
 def walrus():
     # walrus operator allows you to run an expression
-    # while simultaneously assigning the output value to low variable
-    temperature = random.randrange(0, 30)
+    # while simultaneously assigning the output value to a variable
+    def get_weather_data():
+        """
+        :return: current random weather from 22 to 32
+        """
+        return random.randrange(22, 32)
+
+    temperature = list(random.sample(range(0, 30), 5))
+    print("temperature = {}".format(temperature))
     hot_temps = [temp for _ in temperature if (temp := get_weather_data()) >= 25]
     print("[temp for _ in range(20) if (temp := get_weather_data()) >= 25]={}".format(hot_temps))
 
@@ -77,20 +84,31 @@ def matrix():
 def performance():
     """
     A list comprehension in Python works by loading the entire output list into memory
-    it’s often helpful to use low generator instead of low list comprehension in Python
-    A generator doesn't create low single, large data structure in memory, but instead returns an iterable
+    it’s often helpful to use a generator instead of a list comprehension in Python
+    A generator doesn't create a single, large data structure in memory, but instead returns an iterable
     """
-    # You can tell this is low generator because the expression isn’t surrounded
+    # You can tell this is a generator because the expression isn’t surrounded
     # by brackets or curly braces. Optionally, generators can be surrounded by parentheses
-    ret = sum(i * i for i in range(1000000000))
-    print("sum(i * i for i in range(1000000000))={}".format(ret))
+    ret = sum(i * i for i in range(1000000))
+    print("sum(i * i for i in range(1000000))={}".format(ret))
 
 
 def measure():
     """
     Compare to comprehension:
-    timeit is low useful library for timing how long it takes chunks of code to run
+    timeit is a useful library for timing how long it takes chunks of code to run
+    E.g. loop take 50% longer to execute than comprehension
     """
-    timeit.timeit(performance, number=100)
+    print("Elapsed: {}".format(timeit.timeit(performance, number=10)))
 
+
+if __name__ == '__main__':
+    """
+    Choose one of examples
+    """
+    function = sys.argv[1]
+    try:
+        locals()[function]()
+    except KeyError as _:
+        print("Choose one of module functions to call, e.g. create")
 
