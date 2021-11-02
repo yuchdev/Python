@@ -1,4 +1,3 @@
-<?xml version="1.0" ?>
 <component name="ProjectDictionaryState">
   <dictionary name="atatat">
     <words>
@@ -10,20 +9,36 @@
       <w>Significand</w>
       <w>Valueformat</w>
       <w>addin</w>
+      <w>addr</w>
+      <w>albanie</w>
+      <w>albanien</w>
+      <w>albtelecom</w>
       <w>alignof</w>
+      <w>antifraud</w>
       <w>apis</w>
+      <w>archiver</w>
+      <w>archivers</w>
+      <w>asctime</w>
       <w>atatat</w>
       <w>autocomplete</w>
       <w>autofocus</w>
+      <w>binarycreator</w>
+      <w>btelecom</w>
       <w>chargeback</w>
+      <w>cherkasov</w>
       <w>comntools</w>
       <w>const's</w>
       <w>constexpr's</w>
       <w>cortana</w>
+      <w>csvfile</w>
       <w>cyber</w>
       <w>datatype</w>
+      <w>datatypes</w>
+      <w>dbclient</w>
       <w>destructors</w>
       <w>dialup</w>
+      <w>dropdown</w>
+      <w>durresit</w>
       <w>emoji</w>
       <w>emplaced</w>
       <w>endlines</w>
@@ -35,31 +50,45 @@
       <w>filetable</w>
       <w>freevars</w>
       <w>geodata</w>
+      <w>geoname</w>
       <w>homedir</w>
+      <w>homepath</w>
       <w>hwid</w>
+      <w>hwids</w>
+      <w>intelli</w>
       <w>ipdata</w>
+      <w>iplocation</w>
       <w>ipqs</w>
       <w>ipqualityscore</w>
+      <w>iprange</w>
       <w>keyargs</w>
+      <w>khtml</w>
       <w>kwdefaults</w>
+      <w>levelname</w>
       <w>lvalue</w>
       <w>lvalues</w>
       <w>maxmind</w>
       <w>msbuild</w>
       <w>msft</w>
       <w>multithreading</w>
+      <w>multiuse</w>
       <w>mutexes</w>
+      <w>netcoreapp</w>
       <w>overlive</w>
       <w>overliving</w>
       <w>pagefile</w>
       <w>pypi</w>
+      <w>qarku</w>
       <w>qstandarditem</w>
       <w>qualname</w>
       <w>quickstart</w>
       <w>realpath</w>
       <w>reinstallation</w>
+      <w>repogen</w>
+      <w>retcodes</w>
       <w>runbackup</w>
       <w>rvalue</w>
+      <w>shodan</w>
       <w>significand</w>
       <w>stocknames</w>
       <w>subindex</w>
@@ -67,14 +96,17 @@
       <w>subkeys</w>
       <w>subproduct</w>
       <w>subvalue</w>
+      <w>usecase</w>
       <w>vals</w>
       <w>vassist</w>
+      <w>vulns</w>
       <w>webgl</w>
       <w>xlsm</w>
       <w>xlsx</w>
       <w>xlwings</w>
       <w>yandex</w>
       <w>yozh</w>
+      <w>yurii</w>
     </words>
   </dictionary>
 </component>

@@ -14,7 +14,7 @@ def boolean():
     print("size > 0 is", size > 0)
     print("size == 0 is", size == 0)
     print('Boolean implicitly converted to int, 42 + True =', 42 + True)
-    # Falsy args, or args converted to False: None, 0, [], (), {}, set()
+    # False args, or args converted to False: None, 0, [], (), {}, set()
 
 
 def walrus():
