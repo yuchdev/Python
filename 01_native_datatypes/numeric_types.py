@@ -86,7 +86,7 @@ def complex_num():
     print("Subtraction of two complex number =", c1 - c2)
 
     # complex numbers don’t support comparison operators like <, >, <=, =>
-    # and it will through TypeError message
+    # and it will raise TypeError message
 
     # Phase is angle between the real axis and the vector representing the imaginary part
     print('Phase = {} radians'.format(cmath.phase(c1)))
@@ -146,7 +146,7 @@ def fraction():
     print("Fraction(1, 3)**2 =", x**2)
 
     # The Fraction object will automatically reduce fraction (6/4) = (3/2)
-    # Python has the good sense not to create a fraction with a zero denominator
+    # Python has the common sense not to create a fraction with a zero denominator
     y = fractions.Fraction(6, 4)
     print("Fraction(6, 4) =", y)
 

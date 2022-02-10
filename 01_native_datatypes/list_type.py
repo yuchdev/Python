@@ -5,8 +5,20 @@ import random
 def create():
     """
     Lists operations
-    List internal representation:
-    https://www.laurentluce.com/posts/python-list-implementation/
+
+    List internal representation in C:
+
+    struct PyListObject {
+        // list header
+        PyObject_VAR_HEAD
+        // array of pointers to the list elements
+        PyObject **ob_item;
+        // number of allocated elements (could be less than actual elements)
+        Py_ssize_t allocated;
+    };
+
+    Standard list is slow, because it uses pointers to value of polymorphic type
+    Fast option is NumPy list, which is true C array
 
     List is a sequential type
     All sequences are ordered, indexed by integers, and have a length
