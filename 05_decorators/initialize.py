@@ -74,27 +74,6 @@ def show_initialize02():
     call_something02()
 
 
-###############################################################################
-# Step 3. Now let's implement decorator that prevent calling function twice
-# **with the same arguments**
-###############################################################################
-def call_once_with_args(func):
-    """
-    This decorator is used to make sure that the function is called only once
-    with the same arguments
-    """
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        # frozenset() is an inbuilt function which takes an iterable object
-        # as input and makes them immutable
-        key = (args, frozenset(kwargs.items()))
-        if key not in wrapper.cache:
-            wrapper.cache[key] = func(*args, **kwargs)
-        return wrapper.cache[key]
-    wrapper.cache = {}
-    wrapper.__cache__ = wrapper.cache
-    return wrapper
-
 
 if __name__ == '__main__':
     """
