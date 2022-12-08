@@ -39,7 +39,7 @@ def append():
     # Assigning a value to an existing key will wipe out the old value
     # Dictionary values can be any datatype, including integers, booleans, or even other dictionaries
     # And within a single dictionary, the values don’t all need to be the same type
-    # Dictionary keys are more restricted, but they can be strings, integers, and a few other types
+    # Dictionary keys are more restricted, but they can be strings, integers, and a few others types
     a_dict[1] = 'mark'
     print("a_dict['user'] = 'mark': ", a_dict)
 

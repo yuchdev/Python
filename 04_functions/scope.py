@@ -28,14 +28,14 @@ def scopes():
     """
     print("Builtin scope: min(42, 0)")
     x = min(42, 0)
-    print(min, "=", x)
+    print(min, " =", x)
     print("Global scope: MIN_GLOBAL = {}".format(MIN_GLOBAL))
 
     def inner():
         print("Enclosing scope: inner()")
         # noinspection PyShadowingNames
         x = 42
-        print("x=", x)
+        print("x =", x)
         print("Local scope: x = 42")
 
     inner()

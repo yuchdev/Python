@@ -74,7 +74,6 @@ def show_initialize02():
     call_something02()
 
 
-
 if __name__ == '__main__':
     """
     Choose one of examples

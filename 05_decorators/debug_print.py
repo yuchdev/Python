@@ -201,6 +201,7 @@ def debug_print05(func):
 
     return wrapper
 
+
 @debug_print05
 def max05(*args):
     """

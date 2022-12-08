@@ -53,6 +53,7 @@ def create():
     print("random.sample(range(1, 100), 10) = {}".format(rnd_list))
 
 
+# noinspection GrazieInspection
 def append():
     print('Lists append')
     a_list = ['a', 'b', 'atatat', 'z', 'example', 'Python']
@@ -68,7 +69,7 @@ def append():
     print("a_list *= 2 =", a_list)
 
     print("append() method adds a single item:")
-    # The append() method adds a single item to the end of the list
+    # The 'append()' method adds a single item to the end of the list
     # appending a list is adding single element of type 'list'
     a_list.append('4')
     print("a_list.append('4') =", a_list)
@@ -79,7 +80,7 @@ def append():
     print("a_list.append([5, 6]) =", a_list)
 
     print("extend() method is merge to original list:")
-    # The extend() method takes one argument, a list,
+    # The 'extend()' method takes one argument, a list,
     # and appends each of the items of the argument to the original list
     # noinspection PyTypeChecker
     a_list.extend([7, 8, 9])
