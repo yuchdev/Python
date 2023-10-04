@@ -1,5 +1,12 @@
 import sys
 
+__doc__ = """All module functions are visible to all other functions in the module
+    Local scope: variables defined inside a function
+    Enclosing scope: variables defined inside a function, but used in a nested function
+    Global scope: variables defined outside a function
+    Builtin scope: variables preassigned in the builtin namespace
+"""
+
 
 def wrapper(outer):
     """

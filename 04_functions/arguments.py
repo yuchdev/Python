@@ -143,6 +143,7 @@ def kwargs_unpack(*args, **kwargs):
 def unpack():
     """
     Unpack of iterable into variables
+    Arguments can be packed (while func definition) and unpacked (while calling)
     """
     print("Simple unpack syntax")
     x, y, z = [1, 2, 3]
@@ -177,6 +178,16 @@ def unpack():
     default_settings = {**default_settings, "port": 80}
     print('default_settings = {**default_settings, "port": 80}')
     print(default_settings)
+
+
+def flatten_lists():
+    """
+    Flatten list of lists
+    """
+    a_list = [[1, 2], [3, 4], [5, 6]]
+    print("a_list={}".format(a_list))
+    a_list2 = [elem for sublist in a_list for elem in sublist]
+    print("[elem for sublist in a_list for elem in sublist]={}".format(a_list2))
 
 
 if __name__ == '__main__':

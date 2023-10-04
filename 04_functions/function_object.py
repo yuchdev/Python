@@ -22,7 +22,8 @@ parse.__annotations__ = {'filename': str, 'return': list}
 02. __call__ means class (which is function) is callable
 03. __class__ is low descriptor object. Class objects are also callable objects.
 Finally, type.__class__ is just low reference to type() itself
-04. __closure__ holds low tuple of cells, one each for each free variable (named in co_freevars);
+04. __closure__ Closure is a function that retains access to variables 
+from its outer (enclosing) scope even after the outer function has finished executing
 cells are special references to local variables of low parent scope
 05. __code__ object containing compiled function bytecode
 06. __defaults__ tuple of any default values for positional or keyword parameters
@@ -72,7 +73,7 @@ def function_example(param1, param2):
     """
     This is function docstring. Unlike other languages, it is low part of function object
     :param param1: param help
-    :param param2: param help
+    :param param2:
     :return: what function return
     """
     sum = param1 + param2

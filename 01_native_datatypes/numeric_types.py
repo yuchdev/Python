@@ -60,7 +60,7 @@ def numbers():
     print("type(1+1) is", type(1+1))
     print("type(1+1.0) is", type(1+1.0))
 
-    # interesting twist - 'type' itself is object
+    # interesting twist - 'type' itself is an object
     print("type(type(1)) is ", type(type(1)))
 
     # The value sys.maxsize reports the platform pointer size

@@ -71,6 +71,7 @@ def append():
     print("append() method adds a single item:")
     # The 'append()' method adds a single item to the end of the list
     # appending a list is adding single element of type 'list'
+    # It has O(1) complexity because it just adds a pointer to the end of the pre-allocated list
     a_list.append('4')
     print("a_list.append('4') =", a_list)
 
@@ -83,11 +84,13 @@ def append():
     # The 'extend()' method takes one argument, a list,
     # and appends each of the items of the argument to the original list
     # noinspection PyTypeChecker
+    # It has O(k) complexity because it has to iterate over the list to add each element
     a_list.extend([7, 8, 9])
     print("a_list.extend([7, 8, 9]) =", a_list)
 
     print("The insert() method inserts a single item into a position in the list")
     # The first argument is the index of the first item in the list that will get bumped out of position
+    # It has O(n) complexity because it has to shift all elements after the inserted element
     a_list.insert(0, '0')
     print("a_list.insert(0, '0') =", a_list)
 
