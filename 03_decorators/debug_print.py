@@ -173,6 +173,7 @@ def max04(*args):
         ret = ret if arg < ret else arg
     return ret
 
+
 def show_max04():
     """
     Example of function max04()
@@ -288,7 +289,6 @@ def trace_stderr01(stream=sys.stderr):
     Decorator that prints a function's name, its arguments, and its return
     values to a stream (by default stderr).
     """
-
     def decorate(func):
         @wraps(func)
         def wrapper(*args, **kwargs):

@@ -95,6 +95,7 @@ def call_once_with_args_lru(func):
         return wrapper
     return decorator
 
+
 @profile
 @call_once_with_args_lru
 def fib03(n):
