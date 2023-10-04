@@ -1,7 +1,6 @@
 import sys
 import time
-from functools import wraps
-
+from functools import wraps, lru_cache, singledispatch
 
 __doc__ = "Time profiling decorator"
 
@@ -73,20 +72,72 @@ def fib02(n):
 
 def show_profile02():
     """
+    Second run is much faster
     """
-    print(f"fib02({30}) = {fib02(30)}")
+    print(f"1 fib02({30}) = {fib02(30)}")
+    print(f"2 fib02({30}) = {fib02(30)}")
 
 
 # TODO:
 # Step 3. Decorator call_once_with_args() exists in the Python standard library
 # and called functools.lru_cache()
+# https://docs.python.org/3/library/functools.html#functools.lru_cache
+def call_once_with_args_lru(func):
+    """
+    This decorator is used to make sure that the function is called only once
+    with the same arguments, otherwise using returned value from cache
+    Utilize functools.lru_cache() decorator
+    """
+    def decorator(cached_func):
+        @lru_cache(maxsize=sys.maxsize)
+        def wrapper(*args, **kwargs):
+            return cached_func(*args, **kwargs)
+        return wrapper
+    return decorator
 
-# TODO:
+@profile
+@call_once_with_args_lru
+def fib03(n):
+    """
+    Recursive Fibonacci sequence generator with caching call once decorator
+    """
+    return 1 if n == 1 else 1 if n == 2 else fib01(n - 1) + fib01(n - 2)
+
+
+def show_profile03():
+    """
+    Second run is much faster
+    """
+    print(f"1 fib03({30}) = {fib03(30)}")
+    print(f"2 fib03({30}) = {fib03(30)}")
+
+
 # Step 4. Decorator functools.singledispatch() adds a method to an existing type
 # which we do not define
+@singledispatch
+def process_data(data):
+    raise NotImplementedError("This function should be implemented for specific data types")
 
-# TODO:
-# Step 5. Decorator functools.reduce()
+
+@process_data.register(int)
+def _(data):
+    print(f"Processing integer: {data}")
+
+
+@process_data.register(str)
+def _(data):
+    print(f"Processing string: {data}")
+
+
+@process_data.register(list)
+def _(data):
+    print(f"Processing list: {data}")
+
+
+def show_profile04():
+    process_data(42)  # Calls the int implementation
+    process_data("Hello,")  # Calls the str implementation
+    process_data([1, 2, 3])  # Calls the list implementation
 
 
 if __name__ == '__main__':

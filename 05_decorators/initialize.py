@@ -1,6 +1,5 @@
 import sys
-from functools import wraps
-
+from functools import wraps, singledispatch
 
 __doc__ = """Show examples of init_once decorator and decorator
 that prevents calling function more than once with the same arguments.
@@ -28,8 +27,7 @@ def call_something01():
 
 def show_initialize01():
     """
-    We init twice
-    :return:
+    Init twice
     """
     call_something01()
     call_something01()
@@ -47,6 +45,7 @@ def call_once(func):
         if not wrapper.called:
             wrapper.called = True
             return func(*args, **kwargs)
+
     wrapper.called = False
     return wrapper
 
@@ -68,7 +67,7 @@ def call_something02():
 
 def show_initialize02():
     """
-    We init once as expected
+    Init once as expected
     """
     call_something02()
     call_something02()

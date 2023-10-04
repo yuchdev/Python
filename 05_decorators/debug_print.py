@@ -173,6 +173,17 @@ def max04(*args):
         ret = ret if arg < ret else arg
     return ret
 
+def show_max04():
+    """
+    Example of function max04()
+    """
+    max04(1, 2, 3, 4, 5)
+    # Now we can see that the __name__, __doc__, and __module__ of the decorated function
+    # are assigned to the wrapper function
+    print(f"max04 name is: {max04.__name__}")
+    print(f"max04 doc is: {max04.__doc__}")
+    print(f"max04 module is: {max04.__module__}")
+
 
 ###############################################################################
 # Step 05. There's a high-order function in functools called partial(func, /, *args, **keywords)
