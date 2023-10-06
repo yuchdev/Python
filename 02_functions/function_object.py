@@ -1,5 +1,5 @@
 import sys
-
+import dis
 
 # TODO: move to objects
 # https://docs.python.org/3/reference/index.html
@@ -76,9 +76,9 @@ def function_example(param1, param2):
     :param param2:
     :return: what function return
     """
-    sum = param1 + param2
-    print("{} + {} = {}".format(param1, param2, sum))
-    return sum
+    result = param1 + param2
+    print("{} + {} = {}".format(param1, param2, result))
+    return result
 
 
 def introspect():
@@ -89,6 +89,21 @@ def introspect():
     print("function_example() type {}".format(type(function_example)))
     print("Function attributes:", dir(function_example))
     print("Function id:", id(function_example))
+
+
+def bytecode(func):
+    """
+    Display bytecode of a function
+    """
+    print("Bytecode of function_example():")
+    dis.dis(func)
+
+
+def show_bytecode():
+    """
+    Compare bytecode of function_example() and function_example2()
+    """
+    bytecode(function_example)
 
 
 def attributes():

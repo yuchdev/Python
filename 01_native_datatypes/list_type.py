@@ -1,10 +1,12 @@
 import sys
 import random
+from dataclasses import dataclass
 
 
 def create():
     """
     Lists operations
+    List can be used and have appropriate API to behave as stack or queue
 
     List internal representation in C:
 
@@ -24,6 +26,9 @@ def create():
     All sequences are ordered, indexed by integers, and have a length
     Sequences can be replicated (*), concatenated (+), sliced,
     sorted, searched by max/min
+
+    Do not copy list! This operation is extremely slow
+    Python lacks linked list (use deque instead)
     """
     print('Lists creation')
 
@@ -196,12 +201,48 @@ def operations():
     # Reverse the elements of the list in place
     a_list.reverse()
     print("a_list.reverse() =", a_list)
+    # Implementation:
+    # sort() is guaranteed to be stable
+    # Python sort has optimization looking for almost sorted sub-list,
+    # and later apply merge sort to them
 
     # The enumerate function adds an extra counter value to iteration
     # A good example of using enumerate()
     # is tracking line numbers while reading a file
     for index, val in enumerate(a_list):
         print("%d=%s" % (index, val))
+
+    # Composite key (sort by first name, then by length of last name)
+    names = ["John Smith", "Alice Johnson", "Bob Johnson", "Emma Brown", "Michael White"]
+    sorted_names = sorted(names, key=lambda fullname: (fullname.split()[0], len(fullname.split()[1])))
+    for name in sorted_names:
+        print(name)
+
+
+@dataclass(frozen=True)
+class DataclassFrozen:
+    """
+    Dataclass is a class with a few restrictions
+    """
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+
+def show_dataclass():
+    """
+    Dataclass is a class with a few restrictions
+    """
+    dc1 = DataclassFrozen(1, 2)
+    dc2 = DataclassFrozen(1, 3)
+    print(dc1)
+    # frozen dataclass is immutable, allows hash and being used as key in dict
+    print(hash(dc1))
+    dataclass_dict = {dc1: 1}
+    print(dataclass_dict)
+
+    dataclass_dict[dc2] = 2
+    print(dataclass_dict)
 
 
 if __name__ == '__main__':
