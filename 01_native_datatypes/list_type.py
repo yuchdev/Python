@@ -198,13 +198,20 @@ def operations():
     # Sort the items of the list in place
     a_list.sort()
     print("a_list.sort() =", a_list)
-    # Reverse the elements of the list in place
-    a_list.reverse()
-    print("a_list.reverse() =", a_list)
     # Implementation:
     # sort() is guaranteed to be stable
     # Python sort has optimization looking for almost sorted sub-list,
     # and later apply merge sort to them
+
+    # Reverse the elements of the list in place
+    a_list.reverse()
+    print("a_list.reverse() =", a_list)
+    # reverse() is heavy operation, because it's in-place operation
+    # reverse through comprehension instead
+    reversed_list = [x for x in reversed(a_list)]
+
+    # one more way to reverse list
+    reversed_list = a_list[::-1]
 
     # The enumerate function adds an extra counter value to iteration
     # A good example of using enumerate()
