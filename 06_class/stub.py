@@ -1,11 +1,4 @@
-import sys
-
-__doc__ = """Classes were introduced in Python 2.2, that is quite late
-for a programming language. Python is not object-oriented language,
-but rather object-based. It means that you can use objects, but you
-don't have to. You can write procedural code in Python, but you can
-also write object-oriented code. It's up to you.
-
+__doc__ = """
 """
 
 
@@ -28,26 +21,3 @@ class Counter:
 
     def increment(self):
         self.counter += 1
-
-
-def counter_example():
-    """
-    Let's create a counter
-    """
-    # IN Python no keyword new is used
-    counter = Counter()
-    print(counter.get())
-
-    counter.increment()
-    print(counter.get())
-
-
-if __name__ == '__main__':
-    """
-    Choose one of examples
-    """
-    function = sys.argv[1]
-    try:
-        locals()[function]()
-    except KeyError as _:
-        print("Choose one of functions to call")

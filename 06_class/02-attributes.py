@@ -42,6 +42,14 @@ class A:
         self.x = 2
 
 
-print(A.x)
+print(f"A.x: {A.x}")
 a = A()
-print(a.x)
+print(f"a.x: {a.x}")
+
+# Bound methods is a special case of attributes
+# They are functions, but they are bound to an instance
+# So they have access to instance attributes
+print(f"c1.increment: {c1.increment}")
+print(f"c1.increment.__func__: {c1.increment.__func__}")
+print(f"c1.increment.__self__: {c1.increment.__self__}")
+print(f"Counter.increment: {Counter.increment}")

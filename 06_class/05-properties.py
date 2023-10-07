@@ -1,11 +1,6 @@
-import sys
-
-__doc__ = """Classes were introduced in Python 2.2, that is quite late
-for a programming language. Python is not object-oriented language,
-but rather object-based. It means that you can use objects, but you
-don't have to. You can write procedural code in Python, but you can
-also write object-oriented code. It's up to you.
-
+__doc__ = """Property is a special kind of attribute that has a getter and a setter
+It is achieved by using decorator @property,
+and the resulting object is called descriptor, which behaves like a data field
 """
 
 
@@ -13,7 +8,6 @@ class Counter:
     """
     I'm counter, I count stuff
     """
-
     def __init__(self, start=0):
         """
         In Python __init__ is not a constructor, but rather initializer
@@ -30,10 +24,12 @@ class Counter:
     def increment(self):
         self.counter += 1
 
+    @property
+    def is_zero(self) -> bool:
+        return self.counter == 0
 
-# In Python no keyword new is used
-counter = Counter()
-print(counter.get())
 
-counter.increment()
-print(counter.get())
+c = Counter()
+print(c.get())
+c.increment()
+print(c.is_zero)
