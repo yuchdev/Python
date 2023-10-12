@@ -21,7 +21,7 @@ def file_read():
     """
     Read file
     """
-    with open('files.py', 'r') as file:
+    with open('04-files.py', 'r') as file:
         print(file.read())
 
 
@@ -30,7 +30,7 @@ def file_readline():
     Read file line by line
     Delimiting character is \n and can't be changed
     """
-    with open('files.py', 'r') as file:
+    with open('04-files.py', 'r') as file:
         for line in file:
             print(line, end='')
 
@@ -62,7 +62,7 @@ def show_seek():
     1: Offset is relative to the current file position.
     2: Offset is relative to the end of the file.
     """
-    with open('files.py', 'r') as file:
+    with open('04-files.py', 'r') as file:
         print(file.read(10))
         file.seek(0)
         print(file.read(10))
@@ -75,7 +75,7 @@ def show_buffer():
     Buffered file io
     Optimization to reduce the number of system calls
     """
-    with open('files.py', 'r', buffering=1) as file:
+    with open('04-files.py', 'r', buffering=1) as file:
         print(file.read(10))
         file.seek(0)
         print(file.read(10))
@@ -89,7 +89,7 @@ def show_tell():
     Returns the current position of the file pointer in bytes from the beginning of the file.
     It can be used to keep track of the file position or to later return to the current position
     """
-    with open('files.py', 'r') as file:
+    with open('04-files.py', 'r') as file:
         print(file.read(10))
         print(f"Current position: {file.tell()}")
         file.seek(0)
