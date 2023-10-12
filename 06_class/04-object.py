@@ -3,6 +3,7 @@ __doc__ = """Class duality:
 * Class in Python is a statement 
 """
 
+
 class Counter:
     """
     I'm counter, I count stuff
