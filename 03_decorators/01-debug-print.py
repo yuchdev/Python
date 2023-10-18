@@ -189,9 +189,10 @@ def show_max04():
 ###############################################################################
 # Step 05. There's a high-order function in functools called partial(func, /, *args, **keywords)
 # that returns a new partial object which when called will behave like func
-# called with the positional arguments args and keyword arguments keywords.
-# The partial() is used for partial function application which “freezes” some portion of a function’s arguments
-# and/or keywords resulting in a new object with a simplified signature
+# functools.partial() used to create a new function with some of the arguments 
+# of an existing function "pre-filled" or "fixed" to specific values. 
+# This can be helpful in situations where you want to create a new function 
+# based on an existing one but with certain arguments set to constant values
 # Let's use it in debug_print05()
 def debug_print05(func):
     """
