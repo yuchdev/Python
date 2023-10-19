@@ -5,7 +5,6 @@ for a programming language. Python is not object-oriented language,
 but rather object-based. It means that you can use objects, but you
 don't have to. You can write procedural code in Python, but you can
 also write object-oriented code. It's up to you.
-
 """
 
 

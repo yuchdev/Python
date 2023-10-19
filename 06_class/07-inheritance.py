@@ -1,4 +1,5 @@
 __doc__ = """
+Python works as duck-typing language. Do not use inheritance unless required
 """
 
 
