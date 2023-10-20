@@ -1,3 +1,5 @@
+import sys
+
 __doc__ = """Coroutines in Python are functions that can suspend their execution before reaching return, 
 and later resume from the same point, possibly with a different context.
 
@@ -7,7 +9,6 @@ This bidirectional communication makes coroutines suitable for scenarios
  where data needs to flow in both directions.
 
 Synchronous Coroutines:
-
 Synchronous coroutines are traditional coroutines that operate in a single-threaded, blocking manner. 
 They do not involve asynchronous I/O operations or cooperative multitasking. 
 These coroutines are used in a linear, blocking fashion and are suitable for tasks 
@@ -19,10 +20,14 @@ for use in asynchronous programming.
 They can perform I/O operations or other tasks that may block without blocking the entire program. 
 Asynchronous coroutines can yield control back to an event loop, allowing other tasks to run concurrently. 
 They are used in asynchronous frameworks such as asyncio for non-blocking I/O operations.
+
+`yield` can be used for implementing finite state machines.
+Every state matched a code between two yield statements.
 """
 
-import sys
 
+# TODO: for x in ... yield
+# TODO: async with ...
 
 def simple_coroutine():
     """
