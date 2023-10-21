@@ -2,6 +2,11 @@ __doc__ = """Iterable and Iterator examples
 * iterators support 'in' operator, in works in O(n) time
 * net every sequences can be iterated twice (e.g. network connection)
 * second form of iter() function accepts callable and sentinel (see implementation below)
+
+Python abstracts away many of the complexities of working with iterators 
+by automatically performing the necessary operations behind the scenes.
+The use of explicit iterators in `for` loops would add complexity and reduce code readability,
+so we use them implicitly
 """
 
 
