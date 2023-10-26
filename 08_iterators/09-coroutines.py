@@ -6,7 +6,8 @@ and later resume from the same point, possibly with a different context.
 The yield keyword is used in coroutines not only to yield a value (produce), 
 but also to receive a value (consume) through the generator. 
 This bidirectional communication makes coroutines suitable for scenarios
- where data needs to flow in both directions.
+where data needs to flow in both directions.
+You can send data to a coroutine using the send() method, and throw exceptions into it using the throw() method
 
 Synchronous Coroutines:
 Synchronous coroutines are traditional coroutines that operate in a single-threaded, blocking manner. 
