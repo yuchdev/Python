@@ -8,6 +8,13 @@ Assume our server accept integers and return their squares.
 def square_server(host, port) works well but with only one client.
 It can be solved by using threading or multiprocessing.
 Let's try Threads for the first approach.
+
+
+square_server_threaded() works with multiple clients using polling approach.
+It's not the best solution, because cycle is busy waiting for new connections.
+There's a technique called "select" which allows to wait for multiple events.
+Different OS have different implementations of "select" (*nix systems have POSIX select(), Windows has IOCP, etc.)
+Python has unified API for all of them in selectors module.
 """
 
 
@@ -24,11 +31,9 @@ def handle_client(conn, addr):
                     print(f'Connection closed by {addr}')
                     break
 
-                print(f'Received: {data.decode()}')
-
                 try:
-                    number = int(data)
-                    print(f'Number: {number}')
+                    number = int(data.decode())
+                    print(f'Received: {number}')
                 except ValueError:
                     conn.sendall(b'Wrong input')
 
@@ -60,6 +65,7 @@ def square_server(host, port):
 def square_server_threaded(host, port):
     """
     On every connection create and start new thread
+    Note Pyhon threading is not real threading even its API is similar to Java threads
     """
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
         sock.bind((host, port))
@@ -67,9 +73,7 @@ def square_server_threaded(host, port):
         print(f'Server is listening on {host}:{port}')
         while True:
             conn, addr = sock.accept()
-            with conn:
-                print(f'Connected by {addr}')
-                threading.Thread(target=handle_client, args=(conn, addr)).start()
+            threading.Thread(target=handle_client, args=(conn, addr)).start()
 
 
 if __name__ == '__main__':
@@ -78,6 +82,6 @@ if __name__ == '__main__':
     """
     function = sys.argv[1]
     try:
-        locals()[function]('127.0.0.1', 10001)
+        globals()[function]('127.0.0.1', 10001)
     except KeyError as _:
         print("Choose one of module functions to call, e.g. create")
