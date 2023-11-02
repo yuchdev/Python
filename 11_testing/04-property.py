@@ -93,3 +93,29 @@ def test_rle(it):
     expected = list(it_copy)
     actual = list(encode_decode(it))
     assert expected == actual, f'{expected} != {actual}'
+
+
+@st.composite
+def almost_sorted_lists(draw):
+    """
+    Define a strategy for almost sorted lists
+    """
+    size = draw(st.integers(min_value=0, max_value=100))  # Define the size of the list
+    sorted_list = sorted(range(size))  # Create a sorted list
+    num_swaps = draw(st.integers(min_value=0, max_value=size // 2))  # Number of swaps
+
+    for _ in range(num_swaps):
+        # Perform swaps to make the list almost sorted
+        index1 = draw(st.integers(min_value=0, max_value=size - 1))
+        index2 = draw(st.integers(min_value=0, max_value=size - 1))
+        sorted_list[index1], sorted_list[index2] = sorted_list[index2], sorted_list[index1]
+
+    return sorted_list
+
+
+# Use the custom strategy in a test
+@given(almost_sorted_lists())
+def test_almost_sorted_list(almost_sorted_list):
+    almost_sorted_dataset = almost_sorted_list[:]
+    sort(almost_sorted_dataset)
+    assert is_sorted(almost_sorted_dataset), f'{almost_sorted_dataset} is not sorted'
