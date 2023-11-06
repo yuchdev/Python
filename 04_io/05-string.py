@@ -216,7 +216,6 @@ def show_bytes():
     print(b"Hello World".find(b"World"))
 
 
-
 if __name__ == '__main__':
     """
     Choose one of examples
