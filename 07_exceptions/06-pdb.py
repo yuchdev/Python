@@ -4,7 +4,7 @@ __doc__ = """The Python Debugger (PDB) is a built-in interactive debugger
 that allows you to set breakpoints in your code, inspect variables, 
 and step through your code line by line to diagnose and debug issues
 
-pdb.set_trace()enters debugger interactive mode.
+pdb.set_trace() enters debugger interactive mode.
 In the PDB interactive mode, you can use various commands to inspect and control the program. 
 Some common commands include:
 

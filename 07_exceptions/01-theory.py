@@ -1,5 +1,3 @@
-import sys
-
 __doc__ = """Philosophy and theory of exceptions and error handling
 Exception handling in Python is quite simple, based of try-except-finally for handling,
 raise is used to raise an exception

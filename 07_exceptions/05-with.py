@@ -52,7 +52,7 @@ class FileStub(AbstractContextManager):
         __exit__ method is called when 'with' statement is finished
         parameters can be replaced with *exc_info
         Don't forget to add the check for double release
-        :param exc_type: exception type or iNone if no exception raised
+        :param exc_type: exception type or None if no exception raised
         :param exc_val: exception value or None if no exception raised
         :param exc_tb: exception traceback or None if no exception raised
         :return: True if exception was handled and False otherwise
