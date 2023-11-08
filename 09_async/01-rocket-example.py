@@ -29,7 +29,7 @@ real         9.16
 user         0.30
 sys          0.23
 
-There are 2 pupes of bottleneck in parallel programs: CPU and IO
+There are 2 types of bottleneck in parallel programs: CPU and IO
 In Pyton we can't deal with CPU bottleneck, but we can deal with IO bottleneck
 GIL not so critical for IO operations, because most general-purpose applications wait for IO
 """
