@@ -33,6 +33,6 @@ print(f"child.get() = {child.get()}")
 print(f"child.get() = {child.get()}")
 # Called LeftBase.get(), no matter how many times we call child.get()
 # Lookup order is LeftBase, RightBase, Child
-# When the argument is found, we return it and never lookin further
+# When the argument is found, we return it and never looking further
 
 

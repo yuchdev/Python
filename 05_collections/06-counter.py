@@ -1,8 +1,8 @@
 from collections import Counter
 
 __doc__ = """Counter is a dict subclass for counting hashable objects.
-    Counters can be added
-    Negative counts are being fixed on every operation
+Counters can be added
+Negative counts are being fixed on every operation
 """
 
 text = "This is a sample text. It is short and simple. This text contains some words that we will count."

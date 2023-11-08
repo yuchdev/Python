@@ -39,8 +39,6 @@ def show_lambda():
     print(dd['cats']())
 
 
-
-
 if __name__ == '__main__':
     """
     Choose one of examples

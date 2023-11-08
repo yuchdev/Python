@@ -1,4 +1,5 @@
 import sys
+import threading
 from queue import Queue
 
 __doc__ = """Queue is designed to be thread-safe

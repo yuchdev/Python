@@ -4,7 +4,6 @@ from collections import ChainMap
 __doc__ = """ChainMap is a dictionary-like class for creating a single view of multiple mappings.
     ChainMap is a dictionary-like class for creating a single view of multiple mappings.
     Since it's view, all changes are reflected in the underlying mappings
-
 """
 
 local_vars = {'a': 1, 'b': 2}

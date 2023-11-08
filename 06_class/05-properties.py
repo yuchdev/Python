@@ -64,6 +64,7 @@ class Temperature:
     def fahrenheit(self, value: float):
         self._celsius = (value - 32) * 5 / 9
 
+
 t = Temperature()
 t.celsius = 20
 print(t.celsius)
