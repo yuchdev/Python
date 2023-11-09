@@ -1,4 +1,3 @@
-import sys
 import importlib
 
 from small_package.package_file import SelfReflection, self_reflection

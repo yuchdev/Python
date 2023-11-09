@@ -44,3 +44,5 @@ class MyClass(CodeStyleChecker):
 
 c = MyClass(10, 20)
 print(f"c == {c}")
+
+# TODO: __subclasscheck__, __subclasshook__ hooks

@@ -1,39 +1,7 @@
 import unittest
 from testing import rle
 
-__doc__ = """Testing in Python is not a part of language, but it is a part of standard library.
-There are no strict guidelines on how to write tests, but there are some best practices.
-Some of them are:
-* Tests should be isolated from each other
-* Test user-visible behavior first
-* The best test is integration test without many dependencies
-* Integration tests are more effective because they take less changes to break
-* Data-driven tests are better than copy-pasted tests
-* Less code, more data
-* Asynchronous code is very hard to test. Resort to making load/integration tests instead
-
-Let's test some approaches to testing in Python:
-Print
-Better than nothing, but not good
-
-Assert
-* Better than nothing, better than print
-* Fits for small scripts
-* Do not use in production
-
-Assert with context
-* Assert context is additional information about the error
-* You can pass not only strings, but also any object
-* It's convenient to use the tuple
-
-Doctest is a module for testing docstrings
-* It works by running the code in docstring and comparing the result with the expected one
-* Problem of doctest is that it's hard to test multiline code
-* It general lots of false positives
-* Testing code with documentation is not a good practice, because documentation tends to become outdated
-* From the other side, it's a good reminder to update documentation
-* It can be considered as a tool for testing documentation, not code
-
+__doc__ = """
 Python.unittest
 * Simple unit testing library
 * API reminds of Java's JUnit
@@ -50,14 +18,6 @@ Python.unittest
 * It can be used for creating temporary files, databases, etc.
 * Problem with setUp/tearDown is bad composition, that is different tests can affect each other,
   they may require different setUp/tearDown, etc.
-
-PyTest
-* Simple unit testing framework
-* Runs all tests in the current directory and subdirectories:
-     python3 -m pytest 01-testing.py
-* Instead of family of methods assert*, it uses simple assert
-* It has a lot of plugins, for example, pytest-asyncio
-* It works by parsing the code, building the AST and running the tests
 """
 
 
