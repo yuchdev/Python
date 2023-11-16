@@ -102,6 +102,81 @@ def measure():
     print("Elapsed: {}".format(timeit.timeit(performance, number=10)))
 
 
+# Some examples from Codewars
+def descending_order(num):
+    """
+    Your task is to make a function that can take any non-negative integer as an argument
+    and return it with its digits in descending order
+    """
+    return int("".join(sorted(str(num), reverse=True)))
+
+
+def high_and_low(numbers):
+    """
+    In this little assignment you are given a string of space separated numbers,
+    and have to return the highest and lowest number.
+    """
+    return "{} {}".format(max(numbers.split(" ")), min(numbers.split(" ")))
+
+
+def find_short(s):
+    """
+    Simple, given a string of words, return the length of the shortest word(s).
+    String will never be empty and you do not need to account for different data types.
+    """
+    return min([len(i) for i in s.split(" ")])
+
+
+def to_camel_case(text):
+    """
+    Complete the method/function so that it converts dash/underscore delimited words into camel casing.
+    The first word within the output should be capitalized only if the original word was capitalized
+    (known as Upper Camel Case, also often referred to as Pascal case).
+    """
+    return "".join([i.capitalize() for i in text.replace("-", "_").split("_") if i != text[0]])
+
+
+def no_vowel(string_):
+    """
+    Trolls are attacking your comment section!
+    A common way to deal with this situation is to remove all of the vowels from the trolls' comments,
+    neutralizing the threat.
+    Your task is to write a function that takes a string and return a new string with all vowels removed.
+    For example, the string "This website is for losers LOL!" would become "Ths wbst s fr lsrs LL!".
+    """
+    return "".join([i for i in string_ if i.lower() not in "aeiou"])
+
+
+def persistence(n):
+    """
+    Write a function, persistence, that takes in a positive parameter num and returns its multiplicative persistence,
+    which is the number of times you must multiply the digits in num until you reach a single digit.
+    """
+    count = 0
+    while len(str(n)) > 1:
+        n = eval("*".join(str(n)))
+        count += 1
+    return count
+
+
+def row_sum_odd_numbers(n):
+    """
+    Given the triangle of consecutive odd numbers:
+    Calculate the row sums of this triangle from the row index (starting at index 1)
+    """
+    return n ** 3
+
+
+def find_uniq(arr):
+    """
+    There is an array with some numbers
+    All numbers are equal except for one. Try to find it!
+    It’s guaranteed that array contains at least 3 numbers.
+    The tests contain some very huge arrays, so think about performance.
+    """
+    return [i for i in set(arr) if arr.count(i) == 1][0]
+
+
 if __name__ == '__main__':
     """
     Choose one of examples
