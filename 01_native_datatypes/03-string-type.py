@@ -1,4 +1,4 @@
-__doc__ = """n Python, the string type (str) is used to represent textual data. 
+__doc__ = """In Python, the string type (str) is used to represent textual data. 
 Strings in Python are immutable, meaning their values cannot be changed after they are created. 
 Here's a detailed overview of the Python string type
 """
