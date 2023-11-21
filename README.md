@@ -5,19 +5,19 @@
 ### Module usage
 
 * import path
-* default attributes of empty module (__name__, __module__ etc)
+* default attributes of empty module (`__name__`, `__module__`, etc.)
 
 ### Numeric
 
 * boolean, integer, float, and complex
-* numeric operations +, -, *, **, /, //
-* math.py, sys.maxint
+* numeric operations `+`, `-`, `*`, `**`, `/`, `//`
+* `math.py`, `sys.maxint`
 
 ### String
 
-* bytes string: encode/decode()
+* bytes string: `encode()`/`decode()`
 * unicode string
-* r"" and f"" forms
+* `r""` and `f""` forms
 
 ### List
 
@@ -29,27 +29,27 @@
 
 * immutable, different types elements
 * could be dict key
-* (a,b,c) = x
+* `(a,b,c) = x`
 
 ### Set and Dict
 
 * Represented as hash table
-* keys() return set
-* values() and items() return list
+* `keys()` return set
+* `values()` and `items()` return list
 
 ### Files
 
-* open and "with" statement
+* `open` and `with` statement
 * `read()` - read all content
-* "in", `readlines()` - read all lines
+* `readlines()` - read all lines
 
-## Chapter 1.2. Comprehensions
+### Comprehensions
 
-### List
+#### List
 
 * list comprehension provides a compact way of mapping a list into another list
 * filesystem comprehension example
-* map() and filter() functions
+* `map()` and `filter()` functions
 * combine a list comprehension with a sequence reduction
 * we can perform database-like queries on sequences
 * walrus operator allows you to run an expression while simultaneously assigning the output value
@@ -57,7 +57,7 @@
 * list comprehension in Python works by loading the entire output list into memory
 * it’s often helpful to use a generator instead of a list comprehension in Python
 
-### Dict
+#### Dict
 
 * dictionary comprehension similar to list comprehension, but it operates with key-value pairs
 * swapping the keys and values of a dictionary example (value also must be hashable and unique)
@@ -67,20 +67,20 @@
 ### Function as object
 
 * function objects has a number of attributes:
-    * __doc__ is the function’s documentation string
-    * __name__ is the function’s name
-    * __defaults__ is a tuple containing default argument values for those arguments that have defaults, or None if no
+    * `__doc__` is the function’s documentation string
+    * `__name__` is the function’s name
+    * `__defaults__` is a tuple containing default argument values for those arguments that have defaults, or None if no
       arguments have a default value
-    * __code__ is the code object representing the compiled function body
-    * __globals__ is a reference to the dictionary that holds the function’s global variables — the global namespace of
+    * `__code__` is the code object representing the compiled function body
+    * `__globals__` is a reference to the dictionary that holds the function’s global variables — the global namespace of
       the module in which the function was defined
-    * __dict__ is the namespace supporting arbitrary function attributes
-    * __closure__ is None or a tuple of cells that contain bindings for the function’s free variables
-    * __annotations__ is a dictionary containing annotations of parameters
-    * __kwdefaults__ is a dictionary containing defaults for keyword-only parameters
-    * __call__ is a method that allows the function to be called
-    * __get__ is a method that returns a bound method object when the function is an instance attribute
-* id() function returns an integer representing its identity
+    * `__dict__` is the namespace supporting arbitrary function attributes
+    * `__closure__` is None or a tuple of cells that contain bindings for the function’s free variables
+    * `__annotations__` is a dictionary containing annotations of parameters
+    * `__kwdefaults__` is a dictionary containing defaults for keyword-only parameters
+    * `__call__` is a method that allows the function to be called
+    * `__get__` is a method that returns a bound method object when the function is an instance attribute
+* `id()` function returns an integer representing its identity
 * Bytecode of function can be obtained by dis module
 
 ### Function arguments
@@ -90,13 +90,13 @@
 * arguments can be empty
 * you can Guarantee at least one argument by using *args
 * arguments can have default values
-* default values are evaluated at the point of function definition. That's why you can't use mutable objects (e.g. set)
-  as default values
-* use None as default value and check it inside function
+* default values are evaluated at the point of function definition
+* that's why you can't use mutable objects (e.g. set) as default values
+* use `None` as default value and check it inside function
 * arguments can be packed (while func definition) and unpacked (while calling)
 * unpacking arguments as a list or dictionary
-* flatten() example
-* keyargs() example
+* `flatten()` example
+* `keyargs()` example
 
 ### Function scope
 
