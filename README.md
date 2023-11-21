@@ -1,6 +1,6 @@
 # Python course
 
-## Chapter 1.1. Native datatypes
+## Chapter 1. Native datatypes
 
 ### Module usage
 
@@ -18,6 +18,14 @@
 * bytes string: `encode()`/`decode()`
 * unicode string
 * `r""` and `f""` forms
+
+### Files
+
+* `open` and `with` statement
+* `read()` - read all content
+* `readlines()` - read all lines
+
+### Chapter 2. Basic Collections
 
 ### List
 
@@ -37,15 +45,7 @@
 * `keys()` return set
 * `values()` and `items()` return list
 
-### Files
-
-* `open` and `with` statement
-* `read()` - read all content
-* `readlines()` - read all lines
-
-### Comprehensions
-
-#### List
+#### List Comprehensions
 
 * list comprehension provides a compact way of mapping a list into another list
 * filesystem comprehension example
@@ -57,12 +57,12 @@
 * list comprehension in Python works by loading the entire output list into memory
 * it’s often helpful to use a generator instead of a list comprehension in Python
 
-#### Dict
+#### Dict Comprehensions
 
 * dictionary comprehension similar to list comprehension, but it operates with key-value pairs
 * swapping the keys and values of a dictionary example (value also must be hashable and unique)
 
-## Chapter 2. Functions
+## Chapter 3. Functions
 
 ### Function as object
 
@@ -124,7 +124,7 @@
   * closures
   * currying
 
-## Chapter 3. Decorators
+## Chapter 4. Decorators
 
 * definition of decorator: a callable high-order function that takes a callable as input and returns another callable
 * replacing __`name`__, __`doc`__, and __`module`__ of the decorator with respected values of the decorated function
@@ -137,7 +137,7 @@
 * decorator that prevent calling function twice with the same arguments
 * using decorators for debugging, logging and profiling
 
-## Chapter 4. Input/Output
+## Chapter 5. Input/Output
 
 ### Encoding
 
@@ -172,7 +172,7 @@
 * object string representation with `__repr__()` and `__str__()` methods
 * string case conversion with `upper()`, `lower()`, `capitalize()`, `title()`, `swapcase()` methods
 
-## Chapter 5. Collections
+## Chapter 6. Additional Collections
 
 * thread-safe queues: `queue.Queue`, `queue.LifoQueue`
 * deque: `collections.deque`
@@ -180,7 +180,7 @@
 * tuples: `collections.namedtuple`, `collections.Counter`
 * dictionaries: `collections.defaultdict`, `collections.OrderedDict`, `collections.ChainMap`
 
-## Chapter 6. Classes
+## Chapter 7. Classes
 
 ### Class Definition
 
@@ -269,7 +269,7 @@
 * async callable: `__acall__`
 
 
-## Chapter 7. Exceptions
+## Chapter 8. Exceptions
 
 ### Exception Theory
 
@@ -377,6 +377,6 @@
 * the `pdb` module provides a built-in debugger for tracing errors and debugging code interactively
 * `pdb.set_trace()` enters debugger interactive mode
 
-## Chapter 8. Iterators
+## Chapter 9. Iterators
 
 TBC
