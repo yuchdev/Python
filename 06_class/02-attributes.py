@@ -29,7 +29,7 @@ c2 = Counter(10)
 c3 = Counter(100)
 assert len(Counter.all_counters) == 3
 
-# You can assess class attributes from instances and from the class itself
+# You can access class attributes from instances and from the class itself
 assert c1.all_counters is c2.all_counters is Counter.all_counters
 
 

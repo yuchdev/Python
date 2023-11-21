@@ -199,7 +199,7 @@ def show_str_repr():
 
 def show_bytes():
     """
-    String abd bytes are different, but have similar APIs
+    String and bytes are different, but have similar APIs
     """
     # String
     print("Hello World")

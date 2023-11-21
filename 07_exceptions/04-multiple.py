@@ -15,7 +15,6 @@ __doc__ = """Multiple exceptions:
     
 * try can contain 'else' block
   It is used for code that should be executed only if no exception was raised
-
 """
 
 
