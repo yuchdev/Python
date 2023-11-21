@@ -1,5 +1,7 @@
 import re
 
+# TODO: This chapter is a stub. Organize this module.
+
 __doc__ = """The re module provides several functions, but the most commonly used ones are:
 re.search(pattern, string): Searches for a match anywhere in the string.
 re.match(pattern, string): Matches only at the beginning of the string.
