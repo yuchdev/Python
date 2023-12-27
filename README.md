@@ -1,4 +1,4 @@
-# Python course
+# Python for Developers
 
 ## Chapter 1. Native datatypes
 
