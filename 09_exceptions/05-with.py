@@ -1,5 +1,7 @@
+import os
 import sys
 import time
+import tempfile
 from contextlib import AbstractContextManager, ContextDecorator, suppress
 
 __doc__ = """Error handling of multiple resources
@@ -122,3 +124,26 @@ try:
     slow_function()
 except ValueError as e:
     print(f"Caught an exception: {e}")
+
+# Implement context manager creating temporary file and removing it after usage
+
+
+class TemporaryFile(AbstractContextManager):
+
+    def __enter__(self):
+        self.file = tempfile.NamedTemporaryFile(delete=False)
+        return self.file
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.file.close()
+        if exc_type is not None:
+            os.unlink(self.file.name)
+        return False
+
+
+# Example usage of TemporaryFile
+with TemporaryFile() as file:
+    file.write(b"Hello, world!")
+    file.flush()
+    print(f"Temporary file name: {file.name}")
+    raise ValueError("An error occurred")

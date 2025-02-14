@@ -13,6 +13,8 @@ def create():
     print("a_set =", a_set)
     print("type(a_set) =", type(a_set))
 
+    # Set is based on hash table, so it can not contain mutable objects
+
     # You can also create a set out of a list
     a_list = ['a', 'b', 'Python', True, False, 42]
     a_set = set(a_list)

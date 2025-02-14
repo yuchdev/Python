@@ -210,8 +210,12 @@ def operations():
     # reverse through comprehension instead
     reversed_list = [x for x in reversed(a_list)]
 
+    print("reversed_list = [x for x in reversed(a_list)] =", reversed_list)
+
     # one more way to reverse list
     reversed_list = a_list[::-1]
+
+    print("reversed_list = a_list[::-1] =", reversed_list)
 
     # The enumerate function adds an extra counter value to iteration
     # A good example of using enumerate()

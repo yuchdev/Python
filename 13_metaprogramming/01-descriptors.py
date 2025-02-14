@@ -16,7 +16,6 @@ Example 1. `obj.x` is translated to:
 2. If Obj.__dict__ contains __get__, return Obj.__dict__.__get__(obj, Obj)
 3. If Obj.__dict__ contains x, return x.__get__(obj)
 
-≥≥≥≥≥≥≥
 Example 2. `instance.foobar: Class` is translated to:
 1. Class.__getattribute__(instance, 'foobar')
 2. If 'foobar' in Class.__dict__:

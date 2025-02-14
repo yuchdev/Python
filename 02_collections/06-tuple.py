@@ -17,6 +17,8 @@ def create():
     new_tuple = a_tuple[1:-1]
     print("a_tuple[1:-1] =", new_tuple)
 
+    # Tuple based on data structure, which is similar to list
+
     # Tuples may be nested
     nested_tuple = (1, 2, new_tuple)
     print("(1, 2, new_tuple) =", nested_tuple)

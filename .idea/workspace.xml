@@ -4,7 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6dd528e5-1285-416f-8993-8c99b6f755f9" name="Changes" comment="" />
+    <list default="true" id="7e15c6da-85a2-42be-b43d-8f918340d124" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/Python.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DJANGO_QUESTIONS.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PYTHON_QUESTIONS.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/python.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/01_native_datatypes/03-string-type.py" beforeDir="false" afterPath="$PROJECT_DIR$/01_native_datatypes/03-string-type.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/02_collections/01-list.py" beforeDir="false" afterPath="$PROJECT_DIR$/02_collections/01-list.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/02_collections/05-set.py" beforeDir="false" afterPath="$PROJECT_DIR$/02_collections/05-set.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/02_collections/06-tuple.py" beforeDir="false" afterPath="$PROJECT_DIR$/02_collections/06-tuple.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/09_exceptions/05-with.py" beforeDir="false" afterPath="$PROJECT_DIR$/09_exceptions/05-with.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/13_metaprogramming/01-descriptors.py" beforeDir="false" afterPath="$PROJECT_DIR$/13_metaprogramming/01-descriptors.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,34 +28,49 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="MarkdownSettingsMigration">
-    <option name="stateVersion" value="1" />
-  </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 1
-}</component>
-  <component name="ProjectId" id="2WFGScbSKRgFOmfJaXpziuYgi6O" />
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 3
+}]]></component>
+  <component name="ProjectId" id="2t2057QzSfcctLyx99VKlXvW5KW" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-PY-243.22562.220" />
+        <option value="bundled-python-sdk-0fc6c617c4bd-9a18a617cbe4-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.22562.220" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="6dd528e5-1285-416f-8993-8c99b6f755f9" name="Changes" comment="" />
-      <created>1696320928703</created>
+      <changelist id="7e15c6da-85a2-42be-b43d-8f918340d124" name="Changes" comment="" />
+      <created>1739534676300</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1696320928703</updated>
+      <updated>1739534676300</updated>
+      <workItem from="1739534677387" duration="3950000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
 </project>

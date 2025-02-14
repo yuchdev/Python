@@ -57,4 +57,5 @@ repeated_str = "abc" * 3  # 'abcabcabc'
 # Strings in Python are immutable, meaning their values cannot be changed after creation
 # However, new strings can be created through operations like concatenation and slicing
 original_str = "Python"
+# original_str[0] = "J"  # This will raise an error
 new_str = original_str + " 3"
