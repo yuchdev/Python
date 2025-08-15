@@ -1,60 +1,46 @@
 import re
 
-# TODO: This chapter is a stub. Organize this module.
+"""Quick tour of Python's re module (see README for the full chapter plan).
 
-__doc__ = """The re module provides several functions, but the most commonly used ones are:
-re.search(pattern, string): Searches for a match anywhere in the string.
-re.match(pattern, string): Matches only at the beginning of the string.
-re.findall(pattern, string): Finds all occurrences of the pattern in the string.
-re.sub(pattern, replacement, string): Replaces occurrences of the pattern with the specified replacement.
+This file demonstrates:
+- Compiling patterns and using Pattern methods
+- search vs findall vs sub
+- Greedy vs non-greedy quantifiers
+- Simple lookbehind
 """
 
 # Example 1: Search for a pattern
-pattern = re.compile(r'\d+')
-result = pattern.search('Age: 25, Height: 180 cm')
-print(result.group())  # Output: 25
+pat_digits = re.compile(r"\d+")
+match = pat_digits.search("Age: 25, Height: 180 cm")
+if match:
+    print(match.group())  # 25
 
 # Example 2: Find all occurrences
-pattern = re.compile(r'\b\w{3}\b')
-result = pattern.findall('The cat is on the mat')
-print(result)  # Output: ['The', 'cat', 'on', 'the', 'mat']
+pat_three_letters = re.compile(r"\b\w{3}\b")
+words = pat_three_letters.findall("The cat is on the mat")
+print(words)  # ['The', 'cat', 'on', 'the', 'mat']
 
 # Example 3: Replace pattern in a string
-pattern = re.compile(r'\s+')
-result = pattern.sub('-', 'Hello   World')
-print(result)  # Output: Hello-World
-
+pat_spaces = re.compile(r"\s+")
+print(pat_spaces.sub("-", "Hello   World"))  # Hello-World
 
 # Greedy vs. Non-Greedy Matching
-# By default, quantifiers are greedy, meaning they match as much text as possible
-# Adding a ? makes them non-greedy
-pattern = re.compile(r'<.*?>')
-result = pattern.search('<div>Hello</div>')
-print(result.group())  # Output: <div>
+pat_tag = re.compile(r"<.*?>")  # non-greedy, stops at first '>'
+html = "<div>Hello</div>"
+first_tag = pat_tag.search(html)
+if first_tag:
+    print(first_tag.group())  # <div>
 
-# Lookahead and Lookbehind
-# You can use lookahead ((?=...)) and lookbehind ((?<=...)) assertions 
-# to check for patterns ahead or behind the current position without including them in the match
-pattern = re.compile(r'(?<=@)\w+')
-result = pattern.search('user@example.com')
-print(result.group())  # Output: example
+# Lookbehind (fixed-width in Python)
+pat_domain = re.compile(r"(?<=@)\w+")
+email = "user@example.com"
+domain = pat_domain.search(email)
+if domain:
+    print(domain.group())  # example
 
-
-# Performance Considerations
-# Compile Regular Expressions
-# If you're using a regular expression frequently, consider compiling it with re.compile()
-# This can improve performance, especially in a loop
-pattern = re.compile(r'\d+')
-for text in text_list:
-    result = pattern.search(text)
-
-# Use Specificity
-# Try to make your regular expressions as specific as possible. Broad patterns may lead to inefficient matching
-
-# Avoid Backtracking
-# Be cautious with patterns that involve backtracking, as it can lead to poor performance on large strings
-
-# Profiling
-# If you have concerns about performance, use Python's timeit module or other profiling tools 
-# to identify bottlenecks in your regular expressions
+# Performance tip: compile patterns used in loops
+pat_word = re.compile(r"\w+")
+texts = ["one", "two 22", "three"]
+for t in texts:
+    _ = pat_word.search(t)
 

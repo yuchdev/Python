@@ -1,39 +1,59 @@
-import cProfile
-from functools import lru_cache
+"""Small timing demo and core performance tips.
 
-
-# TODO: This chapter is a stub. Organize this module.
-
-__doc__ = """Optimizing the performance of Python code involves understanding various factors, 
-including execution speed, memory usage, and best practices. 
-Here's a detailed overview of performance considerations in Python
-
-* Python's built-in functions and libraries are implemented in C, making them generally faster than custom implementations in pure Python
-* List comprehensions and generators are often more efficient than traditional loops for creating lists. They provide concise syntax and can be more memory-efficient
-* Accessing global variables is slower than accessing local variables. If a variable is only needed within a function, declare it as a local variable
-* Sets have faster membership tests than lists. If you frequently check for membership, consider using sets
-* Use profiling tools like cProfile to identify bottlenecks in your code. Focus on optimizing the parts that consume the most time. Tools like timeit can help measure the execution time of specific code snippets
-* For numerical and scientific computing, use the NumPy library. NumPy provides highly optimized, vectorized operations that are much faster than equivalent operations on standard Python lists
-* Be mindful of memory usage, especially for large datasets. Use generators to produce data on-the-fly, and consider using data streaming libraries for handling large datasets
-* Consider using caching techniques, such as memoization, to store and reuse the results of expensive function calls
-* Choose the appropriate data structure for your specific use case. For example, use dictionaries for fast lookups and sets for membership tests
+- Use builtins (often in C) over manual Python loops when possible
+- Measure with time.perf_counter() or timeit for micro-benchmarks
+- Prefer sets/dicts for membership and lookups
+- Consider generators to reduce memory footprint
+- Use caching for pure functions when appropriate
 """
 
+import time
+from functools import lru_cache
 
-# Example: Avoid global variables
-def calculate_total(numbers):
-    total = 0  # Local variable
-    for num in numbers:
-        total += num
-    return total
+# Builtins vs manual loops
+N = 1_000_00  # 100k
+nums = list(range(1000)) * 100
 
+start = time.perf_counter()
+manual = 0
+for x in nums:
+    manual += x
+print("manual sum:", manual, "secs:", time.perf_counter() - start)
 
-# Example: Use sets for membership tests
-my_set = {1, 2, 3, 4, 5}
-if value in my_set:
-    print("Value is in the set.")
+start = time.perf_counter()
+builtin_sum = sum(nums)
+print("builtin sum:", builtin_sum, "secs:", time.perf_counter() - start)
 
+# Sets for membership
+hay = list(range(10_000))
+needles = [123, 9999, -1]
+start = time.perf_counter()
+_ = [n in hay for n in needles]
+print("list membership secs:", time.perf_counter() - start)
 
+hay_set = set(hay)
+start = time.perf_counter()
+_ = [n in hay_set for n in needles]
+print("set membership secs:", time.perf_counter() - start)
+
+# Generators vs list (memory-friendly streaming)
+# This generator simulates streaming processing
+
+def gen_process(it):
+    for i in it:
+        yield i * 2
+
+# Caching a pure function (demonstration)
 @lru_cache(maxsize=None)
-def expensive_function(n):
-    pass
+def fib(n: int) -> int:
+    if n < 2:
+        return n
+    return fib(n - 1) + fib(n - 2)
+
+start = time.perf_counter()
+print("fib(32)=", fib(32))
+print("first call secs:", time.perf_counter() - start)
+
+start = time.perf_counter()
+print("fib(32) again=", fib(32))
+print("cached call secs:", time.perf_counter() - start)

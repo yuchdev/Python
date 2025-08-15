@@ -4,21 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7e15c6da-85a2-42be-b43d-8f918340d124" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/Python.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DJANGO_QUESTIONS.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PYTHON_QUESTIONS.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+    <list default="true" id="81848acb-7e7e-4e9f-8777-46367317a6a6" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/05_regex/02-match-search-fullmatch.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05_regex/03-groups-named.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05_regex/04-flags-verbose.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05_regex/05-finditer-split-sub.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05_regex/06-unicode-and-bytes.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05_regex/07-performance.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/12_performance/02-timeit-perf_counter.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/12_performance/03-cprofile.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/12_performance/04-algorithms-data-structures.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/12_performance/05-generators-vs-lists.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/12_performance/06-caching-memoization.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/12_performance/07-async-io-vs-threads.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/12_performance/08-multiprocessing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Python.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Python.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/python.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/01_native_datatypes/03-string-type.py" beforeDir="false" afterPath="$PROJECT_DIR$/01_native_datatypes/03-string-type.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/02_collections/01-list.py" beforeDir="false" afterPath="$PROJECT_DIR$/02_collections/01-list.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/02_collections/05-set.py" beforeDir="false" afterPath="$PROJECT_DIR$/02_collections/05-set.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/02_collections/06-tuple.py" beforeDir="false" afterPath="$PROJECT_DIR$/02_collections/06-tuple.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/09_exceptions/05-with.py" beforeDir="false" afterPath="$PROJECT_DIR$/09_exceptions/05-with.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/13_metaprogramming/01-descriptors.py" beforeDir="false" afterPath="$PROJECT_DIR$/13_metaprogramming/01-descriptors.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/05_regex/01-basics.py" beforeDir="false" afterPath="$PROJECT_DIR$/05_regex/01-basics.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/12_performance/01-basics.py" beforeDir="false" afterPath="$PROJECT_DIR$/12_performance/01-basics.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,44 +35,45 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 3
+  "associatedIndex": 7
 }]]></component>
-  <component name="ProjectId" id="2t2057QzSfcctLyx99VKlXvW5KW" />
+  <component name="ProjectId" id="31JkOMUsWlNBKe3vsSIDaOTB9RE" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
+    "junie.onboarding.icon.badge.shown": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "to.speed.mode.migration.done": "true",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-PY-243.22562.220" />
-        <option value="bundled-python-sdk-0fc6c617c4bd-9a18a617cbe4-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.22562.220" />
+        <option value="bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-PY-251.26927.90" />
+        <option value="bundled-python-sdk-41e8cd69c857-64d779b69b7a-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-251.26927.90" />
       </set>
     </attachedChunks>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="7e15c6da-85a2-42be-b43d-8f918340d124" name="Changes" comment="" />
-      <created>1739534676300</created>
+      <changelist id="81848acb-7e7e-4e9f-8777-46367317a6a6" name="Changes" comment="" />
+      <created>1755249538493</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1739534676300</updated>
-      <workItem from="1739534677387" duration="3950000" />
+      <updated>1755249538493</updated>
+      <workItem from="1755249539381" duration="1767000" />
     </task>
     <servers />
   </component>
