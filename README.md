@@ -522,6 +522,11 @@ This chapter focuses on measuring, understanding, and improving performance in P
 - Concurrency and GIL
   - GIL implications; threads for I/O, multiprocessing for CPU, asyncio for many sockets
   - Using concurrent.futures; process pools vs thread pools
+- Free-threaded CPython (Python 3.13, experimental)
+  - PEP 703 introduces a build of CPython without the GIL. Availability and flags (e.g., `-X gil=0`) depend on your build.
+  - New atomic primitives (atomic module) provide lock-free operations; API is experimental and may change.
+  - CPU-bound threads can scale on multi-core only in a free-threaded build; otherwise prefer multiprocessing.
+  - Use with caution: third-party C extensions may not yet be compatible; measure and validate correctness.
 - Native speed paths
   - Builtins and comprehensions; vectorization via NumPy; Cython/Extension overview; PyPy note
 
@@ -535,6 +540,7 @@ This chapter focuses on measuring, understanding, and improving performance in P
 - 06-caching-memoization.py — @lru_cache on expensive functions
 - 07-async-io-vs-threads.py — I/O-bound concurrency comparison (asyncio vs threads)
 - 08-multiprocessing.py — CPU-bound work with ProcessPoolExecutor
+- 09-free-threaded-threads.py — CPU-bound threads on free-threaded CPython 3.13 (experimental) with atomic demo
 
 ### Suggested exercises
 

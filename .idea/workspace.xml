@@ -5,25 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="81848acb-7e7e-4e9f-8777-46367317a6a6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/05_regex/02-match-search-fullmatch.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05_regex/03-groups-named.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05_regex/04-flags-verbose.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05_regex/05-finditer-split-sub.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05_regex/06-unicode-and-bytes.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05_regex/07-performance.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/12_performance/02-timeit-perf_counter.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/12_performance/03-cprofile.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/12_performance/04-algorithms-data-structures.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/12_performance/05-generators-vs-lists.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/12_performance/06-caching-memoization.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/12_performance/07-async-io-vs-threads.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/12_performance/08-multiprocessing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Python.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Python.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/12_performance/09-free-threaded-threads.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/05_regex/01-basics.py" beforeDir="false" afterPath="$PROJECT_DIR$/05_regex/01-basics.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/12_performance/01-basics.py" beforeDir="false" afterPath="$PROJECT_DIR$/12_performance/01-basics.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -34,9 +17,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 7
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="31JkOMUsWlNBKe3vsSIDaOTB9RE" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -54,6 +37,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "to.speed.mode.migration.done": "true",
     "vue.rearranger.settings.migration": "true"
   }
@@ -74,6 +58,7 @@
       <option name="presentableId" value="Default" />
       <updated>1755249538493</updated>
       <workItem from="1755249539381" duration="1767000" />
+      <workItem from="1755433179883" duration="967000" />
     </task>
     <servers />
   </component>
