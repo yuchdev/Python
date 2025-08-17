@@ -445,8 +445,16 @@ This chapter focuses on Python-specific usage of regular expressions via the sta
 * `pdb.set_trace()` enters debugger interactive mode
 
 ## Chapter 10. Iterators and Generators
+This chapter explores Python's iteration protocol and lazy data pipelines. You will build custom iterable and iterator types, write generator functions and expressions, and apply them to real problems. The examples progress from simple range generators to tree traversal, advanced tools from `itertools`, working with I/O through `ExitStack`, and using coroutines for two-way communication.
 
-TBC
+### Goals
+
+- Implement iterables and iterators by defining `__iter__` and `__next__`
+- Create generator functions, generator expressions, and infinite streams
+- Traverse trees and other structures lazily
+- Leverage `itertools` for slicing, chaining, combinatorics, and multiple independent iterators
+- Combine generators with I/O and context managers to manage resources
+- Use coroutines to send and receive values through generators
 
 ## Chapter 11. Asynchronous Programming
 
