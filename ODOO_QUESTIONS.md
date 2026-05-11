@@ -1,190 +1,190 @@
-Ниже — подробные ответы в логике актуальной документации Odoo 19 и текущей практики экосистемы. Для старых веток отдельные детали могут отличаться, но базовые механизмы те же. ([Odoo][1])
+Below are detailed answers aligned with the current Odoo 19 documentation and present-day ecosystem practice. Some details may differ for older branches, but the basic mechanisms remain the same. ([Odoo][1])
 
-1. **Как устроен модуль в Odoo?**
+1. **How is an Odoo module structured?**
 
-Типичный модуль Odoo — это Python-пакет с `__manifest__.py` и `__init__.py`, внутри которого обычно лежат подкаталоги по зонам ответственности. Обязательного “жёсткого” набора папок нет, но де-факто структура такая: `models/` — ORM-модели и бизнес-логика; `views/` — XML-описания форм, списков, search view, actions, menus; `security/` — права доступа (`ir.model.access.csv`) и record rules; `data/` — справочные/служебные записи, sequence, cron, mail templates, конфигурация; `demo/` — демонстрационные данные; `wizards/` или `wizard/` — временные модели и их представления для мастеров; `report/` — отчёты; `controllers/` — HTTP-контроллеры; `static/` — JS/CSS/изображения; `tests/` — тесты. `__manifest__.py` описывает метаданные модуля, зависимости и списки загружаемых файлов. ([Odoo][2])
+A typical Odoo module is a Python package with `__manifest__.py` and `__init__.py`. Inside it, there are usually subdirectories organized by responsibility. There is no mandatory “hard” folder set, but the de facto structure is as follows: `models/` contains ORM models and business logic; `views/` contains XML definitions of forms, lists, search views, actions, and menus; `security/` contains access rights (`ir.model.access.csv`) and record rules; `data/` contains reference/service records, sequences, cron jobs, mail templates, and configuration; `demo/` contains demonstration data; `wizards/` or `wizard/` contains transient models and their views for wizards; `report/` contains reports; `controllers/` contains HTTP controllers; `static/` contains JS/CSS/images; and `tests/` contains tests. `__manifest__.py` describes the module metadata, dependencies, and lists of files to be loaded. ([Odoo][2])
 
-Важно понимать, что это не просто “папки для порядка”: именно через manifest Odoo понимает, какие XML/CSV загружать, в каком порядке, какие модули должны стоять раньше, и какие хуки вызывать. Поэтому модуль в Odoo — это не только код, а связка из Python, ORM-описаний, XML-представлений, security-правил и данных инициализации. ([Odoo][1])
+It is important to understand that these are not just “folders for order.” Through the manifest, Odoo understands which XML/CSV files to load, in what order, which modules must be installed first, and which hooks to call. Therefore, an Odoo module is not only code, but a combination of Python, ORM definitions, XML views, security rules, and initialization data. ([Odoo][1])
 
-2. **Как реализуются зависимости между модулями? Как сделать, чтобы один модуль устанавливался вместе с другим?**
+2. **How are dependencies between modules implemented? How can you make one module installed together with another?**
 
-Зависимости задаются в `__manifest__.py` через поле `depends`. Это означает: перед установкой текущего модуля Odoo должен установить перечисленные зависимости, а также загрузить их модели, поля, XML id и расширения. Если ваш модуль использует модель, view, security group или поле из другого модуля — этот модуль должен быть в `depends`. ([Odoo][1])
+Dependencies are defined in `__manifest__.py` through the `depends` field. This means that before installing the current module, Odoo must install the listed dependencies and load their models, fields, XML IDs, and extensions. If your module uses a model, view, security group, or field from another module, that module must be listed in `depends`. ([Odoo][1])
 
-Если нужно, чтобы модуль **всегда тянул за собой другой**, самый прямой способ — указать его в `depends`. Тогда установка текущего модуля автоматически приведёт к установке зависимого. Но если речь о “связующем” модуле, который должен ставиться только когда установлены оба базовых модуля, для этого обычно используют `auto_install`, а не просто жёсткий `depends`. ([Odoo][1])
+If one module must **always pull in another**, the most direct way is to specify it in `depends`. Then installing the current module will automatically install the dependency. But if we are talking about a “linking” module that should be installed only when two base modules are already installed, `auto_install` is usually used instead of a hard dependency alone. ([Odoo][1])
 
-3. **Что делает `auto_install=True` в manifest.py? Когда это использовать?**
+3. **What does `auto_install=True` do in manifest.py? When should it be used?**
 
-`auto_install=True` говорит Odoo: модуль нужно установить автоматически, если выполнены условия по его зависимостям. Классический сценарий — **link module**, который интегрирует два других модуля. Например, есть модуль продаж и модуль склада, а третий модуль лишь добавляет между ними интеграцию. Тогда этот третий модуль можно сделать `auto_install=True`, и он подтянется сам, когда установлены его зависимости. ([Odoo][1])
+`auto_install=True` tells Odoo that the module should be installed automatically if its dependency conditions are met. The classic scenario is a **link module** that integrates two other modules. For example, there is a Sales module and an Inventory module, while a third module only adds integration between them. In this case, the third module can be marked `auto_install=True`, and it will be installed automatically when its dependencies are installed. ([Odoo][1])
 
-Есть важный нюанс: `auto_install` может быть не только булевым, но и списком. В таком случае автоустановка произойдёт, когда уже установлены модули из этого списка, а недостающие зависимости тоже будут дотянуты. Это удобно для технических “мостов”, локализаций, интеграционных прослоек и функциональности, которая не нужна сама по себе, а только как дополнение к уже имеющемуся стеку. ([Odoo][1])
+There is an important nuance: `auto_install` can be not only a boolean, but also a list. In that case, auto-installation happens when the modules from that list are already installed, while missing dependencies will also be pulled in. This is convenient for technical bridges, localizations, integration layers, and functionality that is not useful by itself but only as an addition to an existing stack. ([Odoo][1])
 
-4. **Какие типы данных используются в Odoo (`demo`, `data`)? В чём разница?**
+4. **What types of data are used in Odoo (`demo`, `data`)? What is the difference?**
 
-В manifest обычно есть два ключевых списка файлов: `data` и `demo`. Файлы из `data` загружаются как обычные данные модуля: security, views, actions, menus, sequences, cron, templates, базовые настройки, справочники и так далее. Это “боевые” данные, которые нужны модулю для работы. ([Odoo][1])
+A manifest usually contains two key file lists: `data` and `demo`. Files from `data` are loaded as regular module data: security, views, actions, menus, sequences, cron jobs, templates, base settings, reference data, and so on. These are “production” data required for the module to function. ([Odoo][1])
 
-`demo` — это демонстрационные данные. Они загружаются только если база/установка разрешает demo-data (`--with-demo`), и обычно используются для примеров, обучения, тестовых сценариев, showcase-данных для продаж/складов/CRM. В production их обычно не ставят. Практически: `data` — обязательно для функциональности, `demo` — только для примеров и стендов. ([Odoo][1])
+`demo` contains demonstration data. It is loaded only if the database/installation allows demo data (`--with-demo`) and is usually used for examples, training, test scenarios, and showcase data for Sales, Inventory, CRM, and similar modules. In production, it is usually not installed. In practice: `data` is required for functionality, while `demo` is only for examples and demo environments. ([Odoo][1])
 
-5. **Что означает `noupdate="1"`? Как влияет на обновление модуля? Можно ли менять такие записи?**
+5. **What does `noupdate="1"` mean? How does it affect module updates? Can such records be changed?**
 
-В XML-файлах Odoo блок `<data noupdate="1">` означает: записи будут загружены при установке, но **при последующих обновлениях модуля не будут автоматически переписываться** данными из XML. Это нужно для записей, которые после установки ожидаемо живут своей жизнью: например, права, настройки, email-шаблоны, cron-задачи, которые администратор может вручную править. ([Odoo][3])
+In Odoo XML files, a `<data noupdate="1">` block means that records will be loaded during installation, but **will not be automatically overwritten** by XML data during subsequent module updates. This is needed for records that are expected to live their own life after installation: for example, access rights, settings, email templates, and cron jobs that an administrator may edit manually. ([Odoo][3])
 
-При этом `noupdate` **не делает запись неизменяемой**. Её можно менять через ORM, UI или SQL. Смысл только в том, что апдейт модуля не перезапишет её содержимое из XML. Если всё же нужно обновить такую запись доставкой модуля, это обычно делают через upgrade script/миграцию, а не рассчитывают на обычную повторную загрузку XML. Для служебных случаев есть и режимы реинициализации, влияющие на noupdate-записи, но это уже скорее инструмент обновления/разработки, а не штатная бизнес-практика. ([Odoo][3])
+At the same time, `noupdate` **does not make a record immutable**. It can still be changed through the ORM, UI, or SQL. The point is only that a module update will not overwrite its content from XML. If such a record still needs to be updated as part of module delivery, this is usually done through an upgrade script/migration rather than by relying on regular XML reloading. There are also service modes for reinitialization that affect noupdate records, but that is more of a development/upgrade tool than normal business practice. ([Odoo][3])
 
-6. **В QWeb используется `t-inherit-mode`. Какие режимы существуют и чем отличаются?**
+6. **QWeb uses `t-inherit-mode`. What modes exist and how do they differ?**
 
-В актуальном QWeb есть два основных режима: `primary` и `extension`. `primary` создаёт **новый дочерний шаблон**, наследующий исходный. То есть вы не портите родительский template, а строите свой поверх него. Это правильно, когда вам нужен отдельный шаблон-результат, который опирается на базовый. ([Odoo][4])
+Modern QWeb has two main modes: `primary` and `extension`. `primary` creates a **new child template** that inherits from the original. In other words, you do not modify the parent template directly; instead, you build your own template on top of it. This is the correct approach when you need a separate resulting template based on a base one. ([Odoo][4])
 
-`extension` работает иначе: он **изменяет родительский шаблон на месте**. Это режим для патчинга существующего шаблона через XPath и похожие механизмы. Его применяют, когда задача — не сделать новый template, а встроиться в уже существующий экран/отчёт/сниппет. На интервью хороший ответ такой: `primary` — “сделать новый шаблон-наследник”, `extension` — “модифицировать базовый template in place”. ([Odoo][4])
+`extension` works differently: it **modifies the parent template in place**. This mode is used for patching an existing template via XPath and similar mechanisms. It is applied when the task is not to create a new template, but to integrate into an existing screen, report, or snippet. A good interview answer is: `primary` means “create a new inherited template,” while `extension` means “modify the base template in place.” ([Odoo][4])
 
-7. **Разница между `_inherit` и `_inherits`**
+7. **The difference between `_inherit` and `_inherits`**
 
-`_inherit` — это **классическое расширение существующей модели**. Вы добавляете поля, методы, constraints, override-ите поведение, но логически продолжаете жить в той же модели. Обычно это один и тот же business object, просто расширенный. Например, вы добавили поле и метод в `res.partner`. Это самый частый сценарий. ([Odoo][2])
+`_inherit` is **classic extension of an existing model**. You add fields, methods, constraints, and override behavior, but logically continue to work within the same model. Usually, it is the same business object, simply extended. For example, you add a field and a method to `res.partner`. This is the most common scenario. ([Odoo][2])
 
-`_inherits` — это **делегирование**. У вашей модели есть собственная таблица, но она хранит ссылку(и) на “родительскую” модель через foreign key, и поля делегированной модели прозрачно доступны как будто свои. Это ближе к композиции, чем к обычному наследованию. Используют, когда нужен новый бизнес-объект со своей жизнью и таблицей, но при этом хочется повторно использовать поля другой модели без копирования. Кратко: `_inherit` — расширяю существующую модель; `_inherits` — строю новую модель поверх другой через делегирование. ([Odoo][2])
+`_inherits` is **delegation**. Your model has its own table, but it stores references to one or more “parent” models through foreign keys, and the fields of the delegated model become transparently accessible as if they were its own. This is closer to composition than ordinary inheritance. It is used when you need a new business object with its own lifecycle and table, but you also want to reuse fields from another model without copying them. In short: `_inherit` means “I extend an existing model”; `_inherits` means “I build a new model on top of another through delegation.” ([Odoo][2])
 
-8. **Зачем после `cr.execute()` вызывать `invalidate_cache()`?**
+8. **Why call `invalidate_cache()` after `cr.execute()`?**
 
-Потому что ORM Odoo агрессивно кэширует поля recordset’ов. Если вы сделали `UPDATE/INSERT/DELETE` напрямую через SQL, ORM об этом сам не узнает, а значит в рамках того же environment/request может продолжать отдавать старые значения из кэша. В итоге вы видите “призраки”: в БД данные уже новые, а через ORM ещё старые. ([Odoo][5])
+Because the Odoo ORM aggressively caches recordset field values. If you perform `UPDATE`, `INSERT`, or `DELETE` directly through SQL, the ORM will not know about it automatically. As a result, within the same environment/request, it may continue returning old values from cache. You get “ghosts”: the database already contains new data, while the ORM still sees old data. ([Odoo][5])
 
-Это критично после любых **изменяющих** SQL-операций (`CREATE`, `UPDATE`, `DELETE`). После них нужно инвалидировать соответствующий кэш модели/recordset. Если изменённые поля участвуют в зависимостях stored computed fields, одной инвалидизации мало: ORM ещё нужно сообщить, что поля были модифицированы, чтобы запустить пересчёты зависимых вычисляемых полей. Если этого не сделать, можно получить несогласованность между БД, кэшем и вычисляемыми значениями. ([Odoo][5])
+This is critical after any **modifying** SQL operation (`CREATE`, `UPDATE`, `DELETE`). After such operations, the corresponding model/recordset cache must be invalidated. If the modified fields participate in dependencies of stored computed fields, cache invalidation alone is not enough: the ORM must also be told that the fields were modified so dependent computed fields can be recomputed. Otherwise, you may get inconsistency between the database, cache, and computed values. ([Odoo][5])
 
-9. **Какие реляционные поля есть в Odoo? Когда применять `Many2one`, `One2many`, `Many2many`?**
+9. **What relational fields exist in Odoo? When should `Many2one`, `One2many`, and `Many2many` be used?**
 
-Основные реляционные поля — `Many2one`, `One2many`, `Many2many`. `Many2one` — это ссылка на **одну** запись другой модели. Классический пример: заказ имеет одного клиента, invoice имеет одну компанию, строка заказа относится к одному order. Это “обычный foreign key”. ([Odoo][5])
+The main relational fields are `Many2one`, `One2many`, and `Many2many`. `Many2one` is a reference to **one** record of another model. Classic examples: an order has one customer, an invoice has one company, and an order line belongs to one order. This is the “ordinary foreign key.” ([Odoo][5])
 
-`One2many` — обратная сторона `Many2one`. Оно не существует само по себе: для `One2many` должен быть соответствующий `Many2one` на другой модели. Это удобно для “у объекта есть набор дочерних строк”: у заказа — строки заказа, у партнёра — контакты, у счёта — линии. ([Odoo][6])
+`One2many` is the reverse side of `Many2one`. It does not exist by itself: for a `One2many`, there must be a corresponding `Many2one` on the other model. This is convenient for cases like “an object has a set of child lines”: an order has order lines, a partner has contacts, and an invoice has lines. ([Odoo][6])
 
-`Many2many` — когда с обеих сторон может быть много записей: товар принадлежит многим тегам, пользователь состоит во многих группах, группа содержит многих пользователей. Практическое правило такое: `Many2one` — главный рабочий FK; `One2many` — удобно показывать и управлять набором дочерних записей; `Many2many` — когда нужна симметричная или почти симметричная связь “многие ко многим”. ([Odoo][7])
+`Many2many` is used when both sides can contain many records: a product belongs to many tags, a user belongs to many groups, and a group contains many users. The practical rule is: `Many2one` is the main working foreign key; `One2many` is convenient for displaying and managing a set of child records; `Many2many` is used when you need a symmetric or nearly symmetric many-to-many relationship. ([Odoo][7])
 
-10. **Что такое `NewID`? Когда встречается?**
+10. **What is `NewID`? When does it appear?**
 
-`NewID` — это внутренний ORM-псевдоидентификатор для **ещё не сохранённой** записи. Он нужен, чтобы Odoo мог работать с “виртуальными” объектами до фактической вставки строки в БД: в `onchange`, в `new()`, во временных x2many-линиях формы и в других сценариях, где запись уже существует в памяти как ORM-объект, но ещё не имеет реального integer id из PostgreSQL. По сути, это маркер “эта запись уже есть в ORM-контексте, но ещё не flush/create в БД”. ([GitLab][8])
+`NewID` is an internal ORM pseudo-identifier for a record that has **not yet been saved**. It is needed so that Odoo can work with “virtual” objects before the actual row is inserted into the database: in `onchange`, in `new()`, in temporary x2many lines in a form, and in other scenarios where a record already exists in memory as an ORM object but does not yet have a real PostgreSQL integer ID. Essentially, it is a marker meaning “this record already exists in the ORM context, but it has not yet been flushed/created in the database.” ([GitLab][8])
 
-На практике `NewID` чаще всего всплывает в отладке, ошибках `onchange`, в доменах/логике на несохранённых строках One2many и при работе с `record.new(vals)`. На интервью достаточно объяснить: это временный псевдо-id несохранённой записи. ([GitHub][9])
+In practice, `NewID` most often appears during debugging, in `onchange` errors, in domains/logic for unsaved One2many lines, and when working with `record.new(vals)`. For an interview, it is enough to explain that it is a temporary pseudo-ID for an unsaved record. ([GitHub][9])
 
-11. **Разница между `compute`, `inverse` и `onchange`**
+11. **The difference between `compute`, `inverse`, and `onchange`**
 
-`compute` — это способ вычислить значение поля из других полей. Поле объявляется вычисляемым, а метод `compute` присваивает ему значение. Если поле stored, его значение может храниться в БД и пересчитываться при изменении зависимостей (`@api.depends`). ([Odoo][5])
+`compute` is a way to calculate a field value from other fields. The field is declared as computed, and the `compute` method assigns a value to it. If the field is stored, its value can be stored in the database and recomputed when dependencies change (`@api.depends`). ([Odoo][5])
 
-`inverse` нужен для обратной записи: computed field по умолчанию read-only, а `inverse` позволяет пользователю/коду записать значение в computed field, а метод уже разложит это изменение по исходным данным. Иными словами: `compute` считает поле “вперёд”, `inverse` раскладывает введённое значение “назад” в зависимости. ([Odoo][5])
+`inverse` is needed for reverse writing: by default, a computed field is read-only, while `inverse` allows a user or code to write a value into the computed field, and the method then distributes that change back into the source data. In other words, `compute` calculates the field “forward,” while `inverse` decomposes the entered value “backward” into its dependencies. ([Odoo][5])
 
-`onchange` — это вообще другой механизм. Он работает на уровне формы в web client: пользователь меняет поле, Odoo вызывает метод и возвращает изменения интерфейсу **без сохранения в БД**. Документация прямо рекомендует не строить на `onchange` критическую бизнес-логику, потому что он не срабатывает при обычном программном `create/write`, а привязан к формам. Практически: `compute`/`inverse` — часть модели и инвариантов; `onchange` — UI-удобство. ([Odoo][10])
+`onchange` is a completely different mechanism. It works at the form level in the web client: the user changes a field, Odoo calls a method and returns changes to the interface **without saving them to the database**. The documentation explicitly recommends not building critical business logic on `onchange`, because it does not run during ordinary programmatic `create/write`; it is tied to forms. In practice: `compute`/`inverse` are part of the model and its invariants; `onchange` is a UI convenience. ([Odoo][10])
 
-12. **Что делает `check_company` в полях связей?**
+12. **What does `check_company` do in relational fields?**
 
-`check_company=True` на реляционном поле добавляет автоматическую проверку согласованности компаний. Odoo будет следить, чтобы связанная запись была допустима с точки зрения multi-company логики текущей записи и активной компании. Это защита от ошибок вида “документ компании A ссылается на справочник компании B”. ([Odoo][5])
+`check_company=True` on a relational field adds an automatic company consistency check. Odoo will ensure that the related record is valid from the perspective of the multi-company logic of the current record and active company. This protects against errors such as “a document from company A references a record from company B.” ([Odoo][5])
 
-Использовать его нужно там, где межмодельная связь должна уважать границы компании: бухгалтерия, склады, контрагенты/журналы/счета, документы с company_id. Особенно полезно на `Many2one`, где пользователь вручную выбирает связанную запись. Это не замена всей multi-company-логике, но очень полезный встроенный guardrail. ([Odoo][5])
+It should be used where an inter-model relationship must respect company boundaries: accounting, inventory, partners/journals/accounts, and documents with `company_id`. It is especially useful on `Many2one`, where the user manually selects a related record. It is not a replacement for all multi-company logic, but it is a very useful built-in guardrail. ([Odoo][5])
 
-13. **Если выполнили SQL напрямую, что сделать, чтобы изменения стали видны ORM?**
+13. **If SQL was executed directly, what should be done so changes become visible to the ORM?**
 
-Правильная последовательность такая. Сначала, если ORM мог ещё не сбросить свои pending changes в БД, нужно сделать flush соответствующих полей/моделей. Затем выполнить SQL. После изменяющего SQL — инвалидировать кэш затронутой модели или recordset. Если вы меняли поля, от которых зависят stored computed fields, дополнительно сообщить ORM через `modified(...)`, чтобы зависимые поля пересчитались. ([Odoo][5])
+The correct sequence is as follows. First, if the ORM may still have pending changes not yet written to the database, flush the corresponding fields/models. Then execute SQL. After modifying SQL, invalidate the cache of the affected model or recordset. If you changed fields that stored computed fields depend on, additionally notify the ORM via `modified(...)` so dependent fields are recomputed. ([Odoo][5])
 
-То есть ответ на интервью хороший такой: “перед raw SQL — flush, после raw SQL — invalidate cache, а при изменении зависимостей вычисляемых полей — ещё и `modified()`/recompute”. Просто `cr.execute()` сам по себе недостаточен, если вы хотите сохранить консистентность ORM-состояния. ([Odoo][5])
+A good interview answer is: “before raw SQL — flush; after raw SQL — invalidate cache; and when changing dependencies of computed fields — also call `modified()`/recompute.” `cr.execute()` by itself is not enough if you want to maintain ORM state consistency. ([Odoo][5])
 
-14. **Что такое lazy loading в Odoo?**
+14. **What is lazy loading in Odoo?**
 
-В терминологии практиков Odoo lazy loading — это то, что поля записи не читаются все подряд заранее. ORM загружает значения **по мере первого доступа** к ним, а затем держит их в кэше environment. Это снижает ненужные запросы и не тащит из БД всё подряд “на всякий случай”. ([Odoo][5])
+In practical Odoo terminology, lazy loading means that record fields are not all read in advance. The ORM loads values **when they are first accessed**, and then keeps them in the environment cache. This reduces unnecessary queries and does not pull everything from the database “just in case.” ([Odoo][5])
 
-Но lazy loading в Odoo почти сразу сочетается с prefetch: как только вы обратились к полю одной записи из recordset’а, ORM обычно подгружает это же поле и набор простых stored fields для более широкого recordset’а. Поэтому практический ответ: lazy loading — отложенная загрузка при первом обращении, а prefetch — её оптимизация против N+1 запросов. ([Odoo][5])
+But in Odoo, lazy loading is almost immediately combined with prefetching: as soon as you access a field of one record from a recordset, the ORM usually loads the same field and a set of simple stored fields for a wider recordset. Therefore, the practical answer is: lazy loading is deferred loading on first access, while prefetching is its optimization against N+1 queries. ([Odoo][5])
 
-15. **Как работает `prefetch_fields` и как влияет на производительность?**
+15. **How does `prefetch_fields` work and how does it affect performance?**
 
-Базовый механизм такой: когда вы читаете поле у записи, ORM не ограничивается только этой одной ячейкой. Он использует кэш и prefetch-эвристику: подгружает поля для более широкого recordset’а, а все простые stored fields одной таблицы часто читаются одним SQL-запросом. Это сильно уменьшает число запросов и борется с N+1-проблемой. ([Odoo][5])
+The basic mechanism is this: when you read a field on a record, the ORM does not limit itself to that single cell. It uses cache and prefetch heuristics: it loads fields for a wider recordset, and all simple stored fields from one table are often read with a single SQL query. This greatly reduces the number of queries and fights the N+1 problem. ([Odoo][5])
 
-На практике также используется контекстный флаг `prefetch_fields=False` — его можно встретить и в коде Odoo — чтобы отключить/сократить эту эвристику в специальных сценариях, например при очень больших проходах по данным, где избыточный prefetch раздувает память и тащит слишком много лишнего. Поэтому влияние на производительность двоякое: **по умолчанию prefetch обычно ускоряет**, но в отдельных heavy-duty случаях его ослабляют ради контроля памяти и лишней выборки. ([GitHub][11])
+In practice, the context flag `prefetch_fields=False` is also used — it can be found in Odoo code — to disable or reduce this heuristic in special scenarios, for example during very large data passes where excessive prefetching inflates memory usage and pulls too much unnecessary data. Therefore, its effect on performance is twofold: **by default, prefetching usually speeds things up**, but in some heavy-duty cases it is weakened for better control over memory and extra reads. ([GitHub][11])
 
-16. **Что такое mixins в Odoo? Как работают?**
+16. **What are mixins in Odoo? How do they work?**
 
-Mixins в Odoo — это переиспользуемые модели/классы, которые добавляют группе моделей общий набор возможностей через наследование. Документация прямо описывает mixins как Odoo-модели, предоставляющие полезные функции через inheritance. Самые типовые примеры — `mail.thread`, `mail.activity.mixin`, `image.mixin`. ([Odoo][12])
+Mixins in Odoo are reusable models/classes that add a shared set of capabilities to a group of models through inheritance. The documentation directly describes mixins as Odoo models that provide useful features through inheritance. The most typical examples are `mail.thread`, `mail.activity.mixin`, and `image.mixin`. ([Odoo][12])
 
-Используют их, когда нужно подключить типовое поведение без копипаста: chatter, активности, изображения, utm, portal, rating и т.д. Это часто сочетается с `_inherit`: вы либо строите собственную модель и наследуете mixin, либо расширяете существующую модель и добавляете ей mixin-функциональность. ([Odoo][12])
+They are used when you need to attach standard behavior without copy-paste: chatter, activities, images, UTM, portal functionality, rating, and so on. This is often combined with `_inherit`: you either build your own model and inherit a mixin, or extend an existing model and add mixin functionality to it. ([Odoo][12])
 
-17. **Чем динамические отчёты отличаются от обычных?**
+17. **How do dynamic reports differ from regular reports?**
 
-Термин “динамический отчёт” в Odoo не всегда формализован одинаково, но обычно под “обычными” понимают классические QWeb-отчёты: есть `ir.actions.report`, шаблон QWeb/HTML и, если нужен PDF, рендер через wkhtmltopdf. Это статический документ, который вы генерируете на основе recordset’а и печатаете/скачиваете. ([Odoo][13])
+The term “dynamic report” in Odoo is not always formalized in the same way, but “regular” reports usually mean classic QWeb reports: there is an `ir.actions.report`, a QWeb/HTML template, and, if a PDF is needed, rendering through wkhtmltopdf. This is a static document generated from a recordset and printed or downloaded. ([Odoo][13])
 
-Под “динамическими” чаще имеют в виду интерактивные отчёты в стиле accounting/reporting engine: пользователь меняет фильтры, разворачивает строки, делает drill-down, пересчитывает представление без генерации фиксированного печатного документа. В Odoo это часто строится на моделях/линиях/выражениях отчётного движка и клиентской отрисовке. То есть обычный отчёт — это “сгенерируй документ”, а динамический — “дай интерактивное аналитическое представление”. ([Odoo][14])
+By “dynamic reports,” people more often mean interactive reports in the style of the accounting/reporting engine: the user changes filters, expands rows, drills down, and recalculates the view without generating a fixed printable document. In Odoo, this is often built on report engine models, lines, expressions, and client-side rendering. In other words, a regular report means “generate a document,” while a dynamic report means “provide an interactive analytical view.” ([Odoo][14])
 
-18. **Что такое abstract model?**
+18. **What is an abstract model?**
 
-`AbstractModel` — это модель без полноценной самостоятельной таблицы данных, предназначенная для общего API, shared logic и переиспользуемого поведения. Документация прямо выделяет `Model`, `TransientModel` и `AbstractModel`, причём для abstract-моделей `_auto=False` по умолчанию. Идея такая: abstract model существует, чтобы от неё наследовались другие модели, а не чтобы бизнес-пользователь создавал её записи как самостоятельный объект. ([Odoo][5])
+`AbstractModel` is a model without a full standalone data table, intended for shared APIs, shared logic, and reusable behavior. The documentation explicitly distinguishes `Model`, `TransientModel`, and `AbstractModel`, with `_auto=False` by default for abstract models. The idea is that an abstract model exists so other models can inherit from it, not so business users can create its records as a standalone object. ([Odoo][5])
 
-Использовать её стоит для базовых классов, сервисных слоёв, mixins, общих методов, общего контрактного API. Если вам не нужен самостоятельный бизнес-объект с отдельной жизнью в БД, а нужна только общая логика — abstract model подходит лучше обычной модели. ([Odoo][5])
+It should be used for base classes, service layers, mixins, common methods, and shared contract APIs. If you do not need a standalone business object with its own lifecycle in the database, but only shared logic, an abstract model fits better than a regular model. ([Odoo][5])
 
-19. **Что такое transient model? Для каких задач предназначена?**
+19. **What is a transient model? What tasks is it intended for?**
 
-`TransientModel` — это временная модель: записи в БД у неё есть, но они считаются временными и автоматически очищаются (vacuum) через некоторое время. Документация прямо связывает с ними wizard’ы. Это не “совсем не сохраняется”, а “сохраняется временно и не является долговременным бизнес-объектом”. ([Odoo][5])
+`TransientModel` is a temporary model: it does have records in the database, but those records are considered temporary and are automatically cleaned up, or vacuumed, after some time. The documentation directly associates them with wizards. It is not “not saved at all,” but rather “saved temporarily and not treated as a long-term business object.” ([Odoo][5])
 
-Типовые задачи — мастера действий, временные формы, промежуточные параметры, settings-визарды, подтверждения, импортные шаги. Очень характерный признак: такие записи живут ради UI-процесса/сценария, а не как часть долгосрочных предметных данных компании. ([Odoo][2])
+Typical tasks include action wizards, temporary forms, intermediate parameters, settings wizards, confirmations, and import steps. A very characteristic sign is that such records exist for a UI process/scenario, not as part of the company’s long-term domain data. ([Odoo][2])
 
-20. **Разница между abstract и transient моделями**
+20. **The difference between abstract and transient models**
 
-`AbstractModel` — это, по сути, шаблон/база для наследования, обычно без собственной предметной таблицы. Её задача — дать общий код и интерфейсы. `TransientModel` — наоборот, вполне реальные записи в БД, но временные, с автоматической очисткой. ([Odoo][5])
+`AbstractModel` is essentially a template/base for inheritance, usually without its own domain table. Its purpose is to provide shared code and interfaces. `TransientModel`, on the contrary, has real records in the database, but they are temporary and automatically cleaned up. ([Odoo][5])
 
-Поэтому кратко: abstract — для переиспользования логики; transient — для временных данных процесса. Если вам нужен общий метод `do_something()` для десятка моделей — abstract. Если нужен wizard “подтвердить операцию и выбрать параметры” — transient. ([Odoo][5])
+So, briefly: abstract is for reusing logic; transient is for temporary process data. If you need a shared `do_something()` method for ten models — use abstract. If you need a wizard to “confirm an operation and select parameters” — use transient. ([Odoo][5])
 
-21. **Что такое миграции в Odoo? Когда нужны и как реализуются?**
+21. **What are migrations in Odoo? When are they needed and how are they implemented?**
 
-Миграции — это код, который приводит существующую БД и данные в соответствие новой версии модуля. Они нужны, когда меняются модели, поля, XML ID, связи, справочники, названия, логика хранения или требуется преобразование уже существующих данных. Документация про custom DB upgrade отдельно подчёркивает случаи с переименованием моделей/полей/XML ID и нюансы `noupdate`-данных. ([Odoo][15])
+Migrations are code that brings an existing database and its data into alignment with a new module version. They are needed when models, fields, XML IDs, relationships, reference data, names, storage logic, or existing data transformations change. The documentation on custom database upgrades specifically highlights cases involving renaming models/fields/XML IDs and nuances around `noupdate` data. ([Odoo][15])
 
-Реализуются миграции через upgrade scripts: Python-файлы с функцией `migrate(cr, version)` в дереве вида `$module/migrations/$version/` или `$module/upgrades/$version/`, с фазами `pre`, `post`, `end`. Внутри можно выполнять SQL и ORM-операции, а для сложных апгрейдов использовать `odoo.upgrade.util`. Это правильный инструмент для версионных преобразований, а не hooks. ([Odoo][16])
+Migrations are implemented through upgrade scripts: Python files with a `migrate(cr, version)` function in a tree such as `$module/migrations/$version/` or `$module/upgrades/$version/`, with `pre`, `post`, and `end` phases. Inside them, SQL and ORM operations can be executed, and for complex upgrades, `odoo.upgrade.util` can be used. This is the correct tool for versioned transformations, not hooks. ([Odoo][16])
 
-22. **Что такое hooks в Odoo? Какие типы существуют и где объявляются?**
+22. **What are hooks in Odoo? What types exist and where are they declared?**
 
-Hooks — это специальные функции жизненного цикла модуля, которые объявляются в manifest. В актуальной документации manifest перечисляет `pre_init_hook`, `post_init_hook` и `uninstall_hook`. Они используются для действий до инициализации, после установки и при удалении модуля. ([Odoo][1])
+Hooks are special module lifecycle functions declared in the manifest. In the current manifest documentation, `pre_init_hook`, `post_init_hook`, and `uninstall_hook` are listed. They are used for actions before initialization, after installation, and during module removal. ([Odoo][1])
 
-Объявляются они в `__manifest__.py`, а сами функции должны быть доступны модулю через `__init__.py`. По текущей документации hooks получают `env`. Типичные сценарии: разовая инициализация данных, сложная подготовка окружения, cleanup при uninstall. Но для обычного обновления версии и трансформации данных лучше использовать миграции, а не hooks. ([Odoo][1])
+They are declared in `__manifest__.py`, and the functions themselves must be available to the module through `__init__.py`. According to the current documentation, hooks receive `env`. Typical scenarios include one-time data initialization, complex environment preparation, and cleanup during uninstall. But for ordinary version updates and data transformations, migrations should be used instead of hooks. ([Odoo][1])
 
-23. **Как работает транзакция в Odoo? Когда commit и rollback?**
+23. **How does a transaction work in Odoo? When do commit and rollback happen?**
 
-Фреймворк Odoo обычно сам открывает SQL-курсор/транзакцию на время одного RPC/API-вызова. Если выполнение прошло успешно, транзакция коммитится. Если в процессе было исключение, происходит rollback. В JSON-2 API документация прямо пишет, что каждый вызов выполняется в собственной SQL-транзакции: успех — commit, ошибка — discard/rollback. Coding guidelines также прямо предупреждают: вручную коммитить без очень веской причины не надо. ([Odoo][17])
+The Odoo framework normally opens an SQL cursor/transaction for the duration of one RPC/API call. If execution succeeds, the transaction is committed. If an exception occurs, rollback is performed. The JSON-2 API documentation directly states that each call is executed in its own SQL transaction: success means commit, and error means discard/rollback. The coding guidelines also explicitly warn that manual commits should not be used without a very strong reason. ([Odoo][17])
 
-Практический вывод: пишите бизнес-операции так, чтобы целостное действие укладывалось в один вызов/транзакцию. Тогда у вас меньше шансов поймать частично применённые изменения. Отдельные специальные сценарии — shell, cron, batch processing — могут коммитить иначе, но базовая модель именно такая: один запрос — одна транзакция. ([Odoo][18])
+The practical conclusion: write business operations so that an integral action fits into one call/transaction. Then there is less chance of ending up with partially applied changes. Some special scenarios — shell, cron, batch processing — may commit differently, but the base model is this: one request, one transaction. ([Odoo][18])
 
-24. **Как работает savepoint? Где используется и зачем?**
+24. **How does a savepoint work? Where is it used and why?**
 
-`savepoint` — это внутренняя точка частичного отката внутри уже открытой транзакции. Если кусок кода внутри savepoint падает, можно откатить только этот участок, не убивая всю внешнюю транзакцию. Это удобно, когда вы хотите попробовать рискованную операцию, но не потерять всё остальное. ([Odoo][19])
+A `savepoint` is an internal partial rollback point inside an already open transaction. If a piece of code inside the savepoint fails, only that section can be rolled back without killing the whole outer transaction. This is convenient when you want to try a risky operation but do not want to lose everything else. ([Odoo][19])
 
-В Odoo savepoint используется и в тестовой инфраструктуре (`SavepointCase`), и в прикладном коде вокруг участков, где локальная ошибка допустима. Но ими нельзя злоупотреблять: coding guidelines отдельно предупреждают, что слишком много savepoint’ов в одной транзакции бьёт по производительности PostgreSQL. ([Odoo][19])
+In Odoo, savepoints are used both in the testing infrastructure (`SavepointCase`) and in application code around sections where a local error is acceptable. But they should not be abused: the coding guidelines separately warn that too many savepoints in one transaction hurt PostgreSQL performance. ([Odoo][19])
 
-25. **Что при одновременном доступе к одним и тем же записям? Как Odoo предотвращает race conditions?**
+25. **What happens during simultaneous access to the same records? How does Odoo prevent race conditions?**
 
-Главная защита — не “магия Odoo”, а транзакционная модель PostgreSQL плюс правильная организация бизнес-методов. Разные RPC/API-вызовы идут в разных транзакциях, и если вы разнесли критическую бизнес-операцию на несколько отдельных вызовов, между ними могут вклиниться конкурентные изменения. Документация JSON-2 прямо предостерегает от таких сценариев для резервирований, платежей и подобных случаев. ([Odoo][17])
+The main protection is not “Odoo magic,” but PostgreSQL’s transaction model plus proper organization of business methods. Different RPC/API calls run in different transactions, and if you split a critical business operation into several separate calls, concurrent changes can slip in between them. The JSON-2 documentation explicitly warns against such scenarios for reservations, payments, and similar cases. ([Odoo][17])
 
-Для критических секций Odoo использует и row locking-паттерны. В документации по cron можно увидеть `try_lock_for_update()` с повторной проверкой домена уже после захвата блокировки. Плюс есть API-методы, которые объединяют действия в одну транзакцию, чтобы избежать race между ними; пример — `search_read`, где документация отдельно говорит, что так устраняется гонка между отдельными `search` и `read`. Хороший инженерный ответ: Odoo опирается на транзакции БД, constraints и блокировки строк; а разработчик обязан держать критические операции атомарными. ([Odoo][20])
+For critical sections, Odoo also uses row-locking patterns. In the cron documentation, you can see `try_lock_for_update()` with a repeated domain check after acquiring the lock. There are also API methods that combine actions into one transaction to avoid races between them; `search_read` is one example, where the documentation specifically says that it eliminates the race between separate `search` and `read` operations. A good engineering answer is: Odoo relies on database transactions, constraints, and row locks, while the developer must keep critical operations atomic. ([Odoo][20])
 
-26. **Как работает `ensure_one()`? Когда использовать?**
+26. **How does `ensure_one()` work? When should it be used?**
 
-`ensure_one()` проверяет, что recordset содержит ровно одну запись. Если записей 0 или больше 1, метод выбрасывает ошибку. Это защитный механизм для методов, которые по смыслу должны работать только на singleton: открыть форму конкретного документа, построить URL одной записи, провести один платёж, напечатать один чек. ([Odoo][5])
+`ensure_one()` checks that a recordset contains exactly one record. If there are 0 records or more than 1, the method raises an error. It is a protective mechanism for methods that semantically must work only on a singleton: opening the form of a specific document, building a URL for one record, processing one payment, printing one receipt. ([Odoo][5])
 
-Важно не злоупотреблять `ensure_one()`. В Odoo ORM очень много методов естественно работают батчами, и насильственное сведение всего к singleton ухудшает производительность и делает код менее “odoo-way”. Используйте `ensure_one()` там, где семантика действительно однообъектная, а не просто “так проще было написать”. ([Odoo][5])
+It is important not to overuse `ensure_one()`. Many Odoo ORM methods naturally work in batches, and forcibly reducing everything to a singleton harms performance and makes the code less “Odoo-way.” Use `ensure_one()` where the semantics are truly single-object, not merely because it was easier to write the method that way. ([Odoo][5])
 
-27. **Разница между миграциями и хуками**
+27. **The difference between migrations and hooks**
 
-Миграции — это **версионные** преобразования данных/схемы при обновлении модуля. Они живут в `migrations/` или `upgrades/`, завязаны на версию и запускаются именно во время update. Это инструмент для эволюции уже существующих баз. ([Odoo][16])
+Migrations are **versioned** data/schema transformations during module updates. They live in `migrations/` or `upgrades/`, are tied to a version, and run specifically during updates. This is the tool for evolving existing databases. ([Odoo][16])
 
-Hooks — это точки жизненного цикла установки/удаления модуля, объявленные в manifest. Их задача — разовые действия вокруг install/uninstall, а не сопровождение версионных изменений по цепочке релизов. Поэтому правило простое: меняете существующие данные между версиями — миграция; нужно особое действие до/после установки или при uninstall — hook. ([Odoo][1])
+Hooks are lifecycle points for module installation/removal, declared in the manifest. Their task is one-time actions around install/uninstall, not maintaining versioned changes across a chain of releases. Therefore, the rule is simple: if you are changing existing data between versions, use a migration; if you need a special action before/after installation or during uninstall, use a hook. ([Odoo][1])
 
-28. **Что такое `queue_job` в Odoo? Как работает и зачем?**
+28. **What is `queue_job` in Odoo? How does it work and why is it needed?**
 
-`queue_job` — это не core Odoo, а популярный модуль экосистемы OCA для асинхронной очереди задач. Его назначение — откладывать выполнение методов Odoo в фон, чтобы не держать пользователя в HTTP-запросе и не выполнять тяжёлую работу синхронно в UI-потоке. OCA описывает его как integrated job queue / asynchronous jobs. ([GitHub][21])
+`queue_job` is not part of core Odoo, but a popular OCA ecosystem module for asynchronous job queues. Its purpose is to defer execution of Odoo methods to the background so the user is not held inside an HTTP request and heavy work is not performed synchronously in the UI thread. OCA describes it as an integrated job queue / asynchronous jobs. ([GitHub][21])
 
-Нужен он для интеграций, импорта/экспорта, синхронизаций, массовых операций, длительной генерации документов, задач с retry и фоновой обработкой. Архитектурно идея простая: бизнес-метод превращается в job, jobrunner подбирает его и исполняет отдельно, часто с каналами, повторами и мониторингом состояния. На интервью хорошо подчеркнуть: это стандартный инструмент асинхронности в Odoo-экосистеме, но не встроенное ядро фреймворка. ([GitHub][21])
+It is needed for integrations, imports/exports, synchronizations, mass operations, long-running document generation, tasks with retry, and background processing. Architecturally, the idea is simple: a business method becomes a job, and the job runner picks it up and executes it separately, often with channels, retries, and status monitoring. In an interview, it is good to emphasize that this is the standard async tool in the Odoo ecosystem, but not part of the framework core. ([GitHub][21])
 
-29. **Как задать значение по умолчанию для поля?**
+29. **How do you set a default value for a field?**
 
-Способов несколько. Самый прямой — атрибут `default=` у поля: можно поставить литерал или callable. Второй важный механизм — `default_get()`, если значение зависит от контекста, пользователя, других полей или сложной логики инициализации. Документация ORM отдельно описывает `default_get()` как метод построения значений по умолчанию. ([Odoo][5])
+There are several ways. The most direct one is the `default=` attribute on the field: it can be a literal or a callable. The second important mechanism is `default_get()`, if the value depends on context, user, other fields, or complex initialization logic. The ORM documentation separately describes `default_get()` as the method for building default values. ([Odoo][5])
 
-Ещё есть defaults через context: ключи вида `default_my_field` прокидывают значение по умолчанию при открытии форм/создании записей. Coding guidelines отдельно предупреждают, что такие ключи могут неожиданно “утечь” дальше по цепочке создания других объектов, если не контролировать контекст. И ещё один источник — `ir.default`, который используется для пользовательских/компанейских default-значений. ([Odoo][22])
+There are also defaults through context: keys such as `default_my_field` pass a default value when opening forms or creating records. The coding guidelines separately warn that such keys may unexpectedly “leak” further down the chain when other objects are created, unless the context is controlled. Another source is `ir.default`, which is used for user/company default values. ([Odoo][22])
 
-30. **Разница между `@api.constrains` и `_sql_constraints`? Что раньше срабатывает?**
+30. **The difference between `@api.constrains` and `_sql_constraints`. Which fires first?**
 
-`@api.constrains` — это Python-уровень. Метод вызывается ORM на записях, где были изменены указанные поля, и должен бросать `ValidationError`, если бизнес-правило нарушено. Это удобно для сложных проверок, межполейной логики, условий, которые неудобно или невозможно выразить чистым SQL. ([Odoo][5])
+`@api.constrains` works at the Python level. The method is called by the ORM on records where the specified fields were changed and must raise `ValidationError` if a business rule is violated. It is useful for complex checks, inter-field logic, and conditions that are inconvenient or impossible to express in pure SQL. ([Odoo][5])
 
-`_sql_constraints` — это ограничения уровня базы данных. Они быстрее и надёжнее для инвариантов типа `UNIQUE`, `CHECK`, простых неотрицательностей и вообще всего, что БД умеет выразить сама. Документация прямо говорит, что SQL constraints обычно эффективнее Python constraints и их стоит предпочитать, если это возможно. ([Odoo][23])
+`_sql_constraints` are database-level constraints. They are faster and more reliable for invariants such as `UNIQUE`, `CHECK`, simple non-negativity rules, and generally anything the database can express by itself. The documentation directly says that SQL constraints are usually more efficient than Python constraints and should be preferred when possible. ([Odoo][23])
 
-Что “раньше” — на собеседовании лучше отвечать аккуратно: **не надо полагаться на порядок, надо полагаться на слой ответственности**. Python constraint живёт в ORM-логике, SQL constraint — в PostgreSQL и является финальной гарантией при фактическом `INSERT/UPDATE`. Поэтому практическое правило такое: всё, что можно жёстко и дёшево гарантировать на уровне БД, держите в `_sql_constraints`; всё, что является сложной бизнес-валидацией, держите в `@api.constrains`. ([Odoo][5])
+As for which one fires “first,” it is better to answer carefully in an interview: **do not rely on order; rely on the responsibility of each layer**. A Python constraint lives in ORM logic, while an SQL constraint lives in PostgreSQL and is the final guarantee during the actual `INSERT/UPDATE`. Therefore, the practical rule is: anything that can be strictly and cheaply guaranteed at the database level should be kept in `_sql_constraints`; complex business validation should be kept in `@api.constrains`. ([Odoo][5])
 
 [1]: https://www.odoo.com/documentation/19.0/developer/reference/backend/module.html "https://www.odoo.com/documentation/19.0/developer/reference/backend/module.html"
 [2]: https://www.odoo.com/documentation/19.0/developer/tutorials/backend.html "https://www.odoo.com/documentation/19.0/developer/tutorials/backend.html"

@@ -13,12 +13,20 @@ Lists are mutable, ordered sequences of elements. They are implemented as arrays
     * `pop([i])`: Removes and returns the item at index `i` (default last).
 * **Slicing**: `my_list[start:stop:step]`.
 * **Memory**: Loading a large list into memory can be expensive; consider generators for large datasets.
+* **Complexity**:
+    * **Append**: O(1) (amortized)
+    * **Index Access**: O(1)
+    * **Insert/Pop**: O(n) (average, depending on position)
+    * **Containment (`in`)**: O(n)
 
 ## Tuple (`tuple`)
 Tuples are immutable, ordered sequences. They are generally faster than lists and can be used as dictionary keys if they contain only hashable elements.
 * **Creation**: `my_tuple = (1, 2, 3)` or `single_item = (1,)`.
 * **Unpacking**: `x, y, z = (1, 2, 3)`.
 * **Nesting**: Tuples can contain mutable objects like lists, which can still be modified.
+* **Complexity**:
+    * **Index Access**: O(1)
+    * **Containment (`in`)**: O(n)
 
 ## Set (`set`)
 Sets are unordered collections of unique, hashable elements. They are implemented as hash tables.
@@ -27,6 +35,9 @@ Sets are unordered collections of unique, hashable elements. They are implemente
     * `add(x)`, `update(iterable)`.
     * `remove(x)` (raises `KeyError` if missing) vs. `discard(x)` (does nothing if missing).
     * **Set Theory**: Union (`|`), Intersection (`&`), Difference (`-`), Symmetric Difference (`^`).
+* **Complexity**:
+    * **Add/Remove/Discard**: O(1) (average)
+    * **Containment (`in`)**: O(1) (average)
 
 ## Dictionary (`dict`)
 Dictionaries are unordered (ordered by insertion since Python 3.7) mappings of unique keys to values.
@@ -34,6 +45,9 @@ Dictionaries are unordered (ordered by insertion since Python 3.7) mappings of u
 * **Access**: `my_dict["key"]` or `my_dict.get("key", default)`.
 * **Methods**: `keys()`, `values()`, `items()`, `update()`, `pop()`.
 * **Inversion**: Can be inverted using `dict(zip(my_dict.values(), my_dict.keys()))`.
+* **Complexity**:
+    * **Get/Set/Delete**: O(1) (average)
+    * **Containment (`in`)**: O(1) (average)
 
 ## Comprehensions
 Comprehensions provide a concise way to create collections.
